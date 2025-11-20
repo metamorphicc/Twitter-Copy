@@ -81,6 +81,16 @@ export interface Tweet {
       },
 
   ];
+
+  export const profilesInfo = [{
+      id: "1",
+      name: "morph",
+      tag: "@morph.eth",
+      description: "something about me lol",
+      created_at: new Date().toString()
+    }, ]
+    
   
-  export default tweets;
+  
+  export default tweets; profilesInfo;
   
