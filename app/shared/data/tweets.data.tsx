@@ -1,3 +1,7 @@
+
+const regData = new Date()
+
+
 export interface Tweet {
     id: string;
     user: string;
@@ -5,6 +9,8 @@ export interface Tweet {
     createdAt?: string;
   }
   
+
+
   export const tweets: Tweet[] = [
     {
       id: "t1",
@@ -82,15 +88,104 @@ export interface Tweet {
 
   ];
 
+
+  export const profiles = {
+    "@morph": {
+      id: "p1",
+      tag: "@morph",
+      name: "Morph Weaver",
+      description: "Любитель превращать баги в фичи. Кофе — мой компилятор.",
+      created_at: regData.toLocaleDateString()
+    },
+    "@byteGuru": {
+      id: "p2",
+      tag: "@byteGuru",
+      name: "Byte Guru",
+      description: "Мастер оптимизаций. Если можно удалить — удалю.",
+      created_at: regData.toLocaleDateString()
+    },
+    "@frontendfox": {
+      id: "p3",
+      tag: "@frontendfox",
+      name: "Frontend Fox 🦊",
+      description: "Живу между Tailwind и React. Лайки за аккуратный UI.",
+      created_at: regData.toLocaleDateString()
+    },
+    "@eth_scribbler": {
+      id: "p4",
+      tag: "@eth_scribbler",
+      name: "ETH Scribbler",
+      description: "Пишу смарт-контракты так, будто за газ платит кто-то другой.",
+      created_at: regData.toLocaleDateString()
+    },
+    "@lazyOps": {
+      id: "p5",
+      tag: "@lazyOps",
+      name: "Lazy Ops",
+      description: "Автоматизирую всё, что вижу. Остальное — завтра.",
+      created_at: regData.toLocaleDateString()
+    },
+    "@css_hermit": {
+      id: "p6",
+      tag: "@css_hermit",
+      name: "CSS Hermit",
+      description: "Flex, Grid и немного дзена. Остальное — боль.",
+      created_at: regData.toLocaleDateString()
+    },
+    "@queryMaster": {
+      id: "p7",
+      tag: "@queryMaster",
+      name: "Query Master",
+      description: "SQL колдун. SELECTаю — значит существую.",
+      created_at: regData.toLocaleDateString()
+    },
+    "@nodeNinja": {
+      id: "p8",
+      tag: "@nodeNinja",
+      name: "Node Ninja",
+      description: "Разбираю баги быстрее, чем npm успевает сломаться.",
+      created_at: regData.toLocaleDateString()
+    },
+    "@ux_sensei": {
+      id: "p9",
+      tag: "@ux_sensei",
+      name: "UX Sensei",
+      description: "Веду пользователей по пути просветления через интерфейс.",
+      created_at: regData.toLocaleDateString()
+    },
+    "@wander_dev": {
+      id: "p10",
+      tag: "@wander_dev",
+      name: "Wander Dev",
+      description: "Блуждаю по идеям и side-project’ам. Пишу, что приходит в голову.",
+      created_at: regData.toLocaleDateString()
+    },
+  };
+  
+  
   export const profilesInfo = [{
       id: "1",
       name: "morph",
       tag: "@morph.eth",
       description: "something about me lol",
-      created_at: new Date().toString()
+      created_at: regData.toLocaleDateString()
+    },
+    {
+      id: "2",
+      name: "Guru",
+      tag: "@byteGuru",
+      description: "something about me lol",
+      created_at: regData.toLocaleDateString()
+    },
+    {
+      id: "3",
+      name: `Frontend fox🦊`,
+      tag: "@frontendfox",
+      description: "something about me lol",
+      created_at: regData.toLocaleDateString()
     }, ]
     
   
   
-  export default tweets; profilesInfo;
+  export default tweets; profilesInfo; profiles;
   
