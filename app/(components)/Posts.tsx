@@ -3,6 +3,7 @@ import styles from "./stylePosts.module.css"
 import "tailwindcss"
 import Image from "next/image";
 import { Icon } from "next/dist/lib/metadata/types/metadata-types";
+
 interface PostProps {
   message: string;
   user: string;

@@ -9,6 +9,7 @@ import { usePathname } from "next/navigation";
 import { use } from "react";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 export function ProfileDate(props: any) {
     const [date, setDate] = useState("");
@@ -21,6 +22,9 @@ export function ProfileDate(props: any) {
   }
 
 export default function Profile() {
+  useEffect(() => {
+    document.title = "Profile"
+  })
   const router = useRouter();
   const urls: string = usePathname(); 
   let result = urls.split("/").pop() as keyof typeof profiles
@@ -43,7 +47,7 @@ export default function Profile() {
               <div className="flex justify-between mb-5">
                
                   <div className="flex-col">
-                  <p>{profiles[(decode)].name}</p>
+                  <p>{profiles[decode].name}</p>
                   <p>{profiles[decode].tag}</p>
                   </div>
                 
