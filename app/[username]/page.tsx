@@ -1,20 +1,17 @@
 "use client";
 
-import "../../page";
+import "../page";
 import Image from "next/image";
-import { profilesInfo } from "../../shared/data/tweets.data";
-import { profile } from "console";
-import { profiles } from "../../shared/data/tweets.data";
+import { profilesInfo } from "../shared/data/tweets.data";
+import { profiles } from "../shared/data/tweets.data";
 import { usePathname } from "next/navigation";
-import { use } from "react";
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
-import LeftMenu from "@/app/components/left_menu/LeftMenu";
-import RightMenu from "@/app/components/right_menu/RightMenu";
+import LeftMenu from "@/app/(components)/left_menu/LeftMenu";
+import RightMenu from "@/app/(components)/right_menu/RightMenu";
 import { ThemeProvider } from "@/app/context/ThemeContext";
 import ThemeButton from "@/app/button";
-
 
 export function ProfileDate(props: any) {
   const [date, setDate] = useState("");
@@ -27,24 +24,6 @@ export function ProfileDate(props: any) {
 }
 
 export default function Profile() {
-  const fileSelect = useRef<HTMLInputElement | null>(null);
-  const [avatar, setAvatar] = useState<string | null>(null);
-  const handleFileSelect = () => {
-    fileSelect.current?.click();
-  };
-  const [inverted, setInverted] = useState(false);
-
-  
-    
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    const url = URL.createObjectURL(file);
-    setAvatar(url);
-  };
-
   useEffect(() => {
     document.title = "Profile";
   });
@@ -80,10 +59,7 @@ export default function Profile() {
                   <p>{profiles[decode].tag}</p>
                 </div>
 
-                <button
-                  className="cursor-pointer shadow border rounded-[18px] p-3 text-sm h-10 flex items-center transition delay-150 duration-300 hover:rotate-45"
-                  onClick={() => handleFileSelect}
-                >
+                <button className="cursor-pointer shadow border rounded-[18px] p-3 text-sm h-10 flex items-center transition delay-150 duration-300 hover:rotate-45">
                   Edit profile
                 </button>
               </div>

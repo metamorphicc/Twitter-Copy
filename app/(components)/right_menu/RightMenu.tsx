@@ -6,7 +6,7 @@ export function RightMenu() {
         <div className=" h-screen sticky top-0 w-90 justify-center" >
             <div className="flex justify-center w-full">
                 <div className="w-[90%] h-[45px] flex
-                     border rounded-[60px] mt-2">
+                     border border-zinc-700 rounded-[60px] mt-2">
                         <Image src={"/search.svg"} alt="fsadfdsa" width={17} height={17} className="ml-5">
 
                         </Image>

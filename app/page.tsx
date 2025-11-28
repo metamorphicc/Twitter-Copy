@@ -1,10 +1,10 @@
 import Image from "next/image";
-import Posts from "./components/Posts";
+import Posts from "./(components)/Posts";
 import "tailwindcss";
 import tweets from "./shared/data/tweets.data";
 import name from "./server/fetchInput";
-import { LeftMenu } from "./components/left_menu/LeftMenu";
-import RightMenu from "./components/right_menu/RightMenu";
+import { LeftMenu } from "./(components)/left_menu/LeftMenu";
+import RightMenu from "./(components)/right_menu/RightMenu";
 export default function Home() {
   return (
     <div className="w-full flex justify-center">
