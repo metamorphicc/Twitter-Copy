@@ -5,9 +5,8 @@ export function Grok() {
        <div className="w-full flex justify-center">
          <LeftMenu />
          <div className=" flex flex-col justify-center items-center">
-           <div className="border min-w-70 w-145 flex justify-center flex-col gap-2 h-full"></div>
+           <div className="border w-145 flex justify-center flex-col gap-2 h-full"></div>
          </div>
-         <RightMenu />
        </div>
      );
 }

@@ -1,4 +1,3 @@
-import { link } from "fs";
 
 export const menuIcons = [
   {
@@ -43,20 +42,20 @@ export const menuIcons = [
     id: 7,
     icon: "/bookmark.svg",
     name: "Bookmarks",
-    link: "bookmarks"
+    link: "/bookmarks"
   },
   {
     id: 8,
     icon: "/department.svg",
     name: "Communities",
-    link: "communities"
+    link: "/communities"
 
   },
   {
     id: 9,
     icon: "/premium.svg",
     name: "Premium",
-    link: "premium"
+    link: "/premium"
 
   },
   {

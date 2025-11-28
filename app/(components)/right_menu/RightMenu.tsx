@@ -11,7 +11,7 @@ export function RightMenu() {
 
                         </Image>
                     <form action="" className="h-full flex w-full" >
-                        <input type="search" placeholder={"Search"} name="search" className="w-full placeholder-white placeholder:font-light placeholder:text-sm h-full outline-none ml-2" />
+                        <input type="text" placeholder={"Search"} name="search" className="w-full placeholder-white placeholder:font-light placeholder:text-sm h-full outline-none ml-2" />
                     </form>
             </div>
             </div>

@@ -1,10 +1,9 @@
-"use client";
-
-import LeftMenu from "../left_menu/LeftMenu";
-import RightMenu from "../right_menu/RightMenu";
+"use client"
+import LeftMenu from "../../left_menu/LeftMenu";
+import RightMenu from "../../right_menu/RightMenu";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 export function Notification(props: any) {
   const router = useRouter();
