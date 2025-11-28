@@ -12,7 +12,7 @@ interface PostProps {
 export default function Posts({ message, user }: PostProps) {
   return (
     <header className={styles.header}>
-      <div className="border w-[90%] overflow-visible p-2 break-words">
+      <div className="border border-indigo-700 w-[90%] p-2 text-wrap break-words">
         <div className="flex gap-2">
         <Image src={"./globe.svg"}
         alt="random logo"
