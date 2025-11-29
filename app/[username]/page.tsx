@@ -35,8 +35,8 @@ export default function Profile() {
   return (
     <div className="flex h-screen justify-center">
       <LeftMenu />
-      <div className="border w-145 h-full flex-col gap-2">
-        <div className="w-full border h-2/3 flex-col">
+      <div className="w-145 h-full flex-col gap-2">
+        <div className="w-full border border-zinc-700 h-2/3 flex-col">
           {/* ДИВ ДЛЯ ШАПКИ */}
           <div className="w-full h-1/2 bg-gray-700/50 flex justify-center items-center text-xl">
             <button

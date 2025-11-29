@@ -11,17 +11,17 @@ export default function Home() {
       <LeftMenu />
       <div className=" flex flex-col justify-center items-center">
         <form action={name}>
-          <div className=" border h-full justify-center">
+          <div className="h-full justify-center">
             <input
               type="text"
               placeholder="What's new?"
               name="mainpageInput"
               id="mPageInput"
-              className="border bg-gray-700 min-w-145 min-h-25 outline-none p-4 text-lg pl-10 text-[21px]"
+              className="border-x border-zinc-700 bg-black min-w-145 min-h-25 outline-none p-4 text-lg pl-10 text-[21px]"
             />
           </div>
         </form>
-        <div className="border min-w-70 w-145 flex justify-center flex-col gap-2">
+        <div className="border border-zinc-700 bg-black min-w-70 w-145 flex justify-center flex-col ">
           {tweets.map((tweet) => (
             <Posts
               key={tweet.id}

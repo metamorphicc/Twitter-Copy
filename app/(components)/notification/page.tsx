@@ -14,8 +14,8 @@ export function Notification(props: any) {
     <>
       <div className="w-full flex justify-center">
         <LeftMenu />
-        <div className=" flex flex-col justify-center items-center">
-          <div className="border border-zinc-700 min-w-70 w-145 h-full flex justify-center flex-col gap-2 items-center">
+        <div className="flex flex-col justify-center items-center">
+          <div className="border border-zinc-700 min-w-70 w-145 h-full flex flex-col bg-black items-center">
             <div className="h-1/7 w-full bg-zinc-950 flex flex-col">
               <div className="flex justify-between p-3 items-center">
                 <h1 className="font-bold tracking-wide text-[22px] pl-2">
@@ -74,8 +74,17 @@ export function Notification(props: any) {
                 </div>
               </div>
             </div>
-            <div className="h-full w-full"></div>
+            <div className="w-full h-full flex">
+                    <div className="w-full flex flex-col items-center">
+                      <div className="p-5 items-center flex flex-col m-8">
+                      <h4 className="font-extrabold text-[30px] text-wrap">Nothing to see here - yet</h4>
+                      <span>When someone mentions you, you’ll find it here.</span>
+                      </div>
+                      
+                    </div>
           </div>
+          </div>
+          
         </div>
         <RightMenu />
       </div>
