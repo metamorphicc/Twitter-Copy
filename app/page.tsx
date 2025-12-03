@@ -21,7 +21,7 @@ export default function Home() {
             />
           </div>
         </form>
-        <div className="border border-zinc-700 bg-black min-w-70 w-145 flex justify-center flex-col ">
+        <div className="border border-zinc-700 bg-black min-w-70 w-145 flex justify-center flex-col gap-6">
           {tweets.map((tweet) => (
             <Posts
               key={tweet.id}

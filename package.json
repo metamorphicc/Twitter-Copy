@@ -3,12 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "nodemon index.js",
+    "dev": "next dev --webpack",
     "build": "next build",
-    "start": "nodemon index.js",
+    "start": "",
     "lint": "eslint"
   },
-  
   "dependencies": {
     "express": "^5.1.0",
     "next": "16.0.3",

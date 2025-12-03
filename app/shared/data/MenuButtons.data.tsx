@@ -1,8 +1,10 @@
+import HomeIcon from "@/public/HomeIcon/HomeIcon";
+import { ArrowIcon } from "@/public/HomeIcon/HomeIcon";
 
 export const menuIcons = [
   {
     id: 1,
-    icon: "/house.svg",
+    icon: <HomeIcon/>,
     name: "Home",
     link: "/"
   },

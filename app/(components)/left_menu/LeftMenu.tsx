@@ -44,12 +44,7 @@ export function LeftMenu(): any {
                         <button onClick={toggleMenu}></button>
                       </>
                     )}
-                    <Image
-                      src={`${icon.icon}`}
-                      alt="home icon"
-                      width={30}
-                      height={30}
-                    />
+                    {icon.icon}
                     <span className="ml-3">More</span>
                   </button>
                 </>
@@ -58,12 +53,7 @@ export function LeftMenu(): any {
                   href={`${icon.link}`}
                   className="py-2 rounded-[50px] w-2/3 px-2 transition hover:bg-zinc-800 flex items-center  font-semibold"
                 >
-                  <Image
-                    src={`${icon.icon}`}
-                    alt="home icon"
-                    width={30}
-                    height={30}
-                  />
+                  {icon.icon}
 
                   <span className="ml-3">{icon.name}</span>
                 </Link>

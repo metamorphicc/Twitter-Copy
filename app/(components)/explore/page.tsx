@@ -1,8 +1,14 @@
+"use client";
+
 import RightMenu from "../right_menu/RightMenu";
 import LeftMenu from "../left_menu/LeftMenu";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter, usePathname } from "next/navigation";
+
 export function Explore() {
+  const router = useRouter();
+  const path = usePathname();
   return (
     <>
       <div className="w-full flex justify-center">
@@ -32,6 +38,7 @@ export function Explore() {
                   </form>
                 </div>
                 <button className="cursor-pointer hover:bg-red-700">
+                
                   <Image
                     src={"/gear.svg"}
                     alt="fsadfdsa"
@@ -42,40 +49,80 @@ export function Explore() {
                 </button>
               </div>
               <div className="flex h-full border-b border-zinc-700">
-                <Link
-                  href="#"
-                  className="flex-1 flex items-center justify-center hover:bg-zinc-700"
+                <div
+                  className="flex items-center justify-center hover:bg-zinc-700 text-neutral-500 w-full px-5 text-[16px] cursor-pointer"
+                  onClick={() => {
+                    router.replace("/explore");
+                  }}
                 >
-                  For you
-                </Link>
+                  <Link href="#">
+                    {path === "/explore" ? (
+                      <p className="font-bold text-white">For you</p>
+                    ) : (
+                      "For you"
+                    )}
+                  </Link>
+                </div>
 
-                <Link
-                  href="#"
-                  className="flex-1 flex items-center justify-center hover:bg-zinc-700 text-neutral-500"
+                <div
+                  className="flex items-center justify-center hover:bg-zinc-700 text-neutral-500 cursor-pointer w-full px-5 text-[16px]"
+                  onClick={() => {
+                    router.replace("/explore/trending");
+                  }}
                 >
-                  Trending
-                </Link>
+                  <Link href="#">
+                    {path === "/explore/trending" ? (
+                      <p className="font-bold text-white">Trending</p>
+                    ) : (
+                      "Trending"
+                    )}
+                  </Link>
+                </div>
 
-                <Link
-                  href="#"
-                  className="flex-1 flex items-center justify-center hover:bg-zinc-700 text-neutral-500"
+                <div
+                  className="flex items-center justify-center hover:bg-zinc-700 text-neutral-500 cursor-pointer w-full px-5 text-[16px]"
+                  onClick={() => {
+                    router.replace("/explore/news");
+                  }}
                 >
-                  News
-                </Link>
+                  <Link href="#">
+                    {path === "/explore/news" ? (
+                      <p className="font-bold text-white">News</p>
+                    ) : (
+                      "News"
+                    )}
+                  </Link>
+                </div>
 
-                <Link
-                  href="#"
-                  className="flex-1 flex items-center justify-center hover:bg-zinc-700 text-neutral-500"
+                <div
+                  className="flex items-center justify-center hover:bg-zinc-700 text-neutral-500 cursor-pointer w-full px-5 text-[16px]"
+                  onClick={() => {
+                    router.replace("/explore/sports");
+                  }}
                 >
-                  Sports
-                </Link>
+                  <Link href="#">
+                    {path === "/explore/sports" ? (
+                      <p className="font-bold text-white">Sports</p>
+                    ) : (
+                      "Sports"
+                    )}
+                  </Link>
+                </div>
 
-                <Link
-                  href="#"
-                  className="flex-1 flex items-center justify-center hover:bg-zinc-700 text-neutral-500"
+                <div
+                  className="flex items-center justify-center hover:bg-zinc-700 text-neutral-500 cursor-pointer w-full px-5 text-[16px]"
+                  onClick={() => {
+                    router.replace("/explore/entertaiment");
+                  }}
                 >
-                  Entertainment
-                </Link>
+                  <Link href="#">
+                    {path === "/explore/entertaiment" ? (
+                      <p className="font-bold text-white">Entertaiment</p>
+                    ) : (
+                      "Entertaiment"
+                    )}
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
