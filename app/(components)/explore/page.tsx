@@ -37,26 +37,27 @@ export function Explore() {
                     />
                   </form>
                 </div>
-                <button className="cursor-pointer hover:bg-red-700">
-                
+                <Link
+                  href={"/"}
+                  className="hover:bg-zinc-700 transition duration-200 rounded-[50px] w-8 h-8 cursor-pointer flex justify-center items-center"
+                >
                   <Image
                     src={"/gear.svg"}
-                    alt="fsadfdsa"
-                    width={21}
-                    height={21}
-                    className="ml-5"
+                    alt="asdf"
+                    width={18}
+                    height={18}
                   ></Image>
-                </button>
+                </Link>
               </div>
               <div className="flex h-full border-b border-zinc-700">
                 <div
                   className="flex items-center justify-center hover:bg-zinc-700 text-neutral-500 w-full px-5 text-[16px] cursor-pointer"
                   onClick={() => {
-                    router.replace("/explore");
+                    router.replace("/explore/for_you");
                   }}
                 >
                   <Link href="#">
-                    {path === "/explore" ? (
+                    {path === "/explore" || path === "/explore/for_you" ? (
                       <p className="font-bold text-white">For you</p>
                     ) : (
                       "For you"

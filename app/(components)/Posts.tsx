@@ -19,7 +19,7 @@ export default function Posts({ message, user }: PostProps) {
         width={28}
         height={28}>
         </Image>
-        <Link href={`/u/${encodeURIComponent(user)}`}>
+        <Link href={`${encodeURIComponent(user)}`}>
           <p className=" mt-1">{user}</p>
         </Link>
           </div>

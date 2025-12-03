@@ -1,13 +1,19 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { useState } from "react";
 import { menuIcons } from "../../shared/data/MenuButtons.data";
 import DropoutMenu from "../toggleMenu";
 
+
+function toCapitalize(arg: string): string {
+  return arg.split("")[0].toUpperCase() + arg.split("").slice(1).join("")
+}
+
 export function LeftMenu(): any {
   const router = useRouter();
+  const path = usePathname();
   const [more, setMore] = useState(false);
   const toggleMenu = () => {
     setMore((prev) => !prev);
@@ -44,18 +50,28 @@ export function LeftMenu(): any {
                         <button onClick={toggleMenu}></button>
                       </>
                     )}
-                    {icon.icon}
+                    {<Image
+                      src={`${icon.icon}`}
+                      alt="home icon"
+                      width={27}
+                      height={27}
+                    />}
                     <span className="ml-3">More</span>
                   </button>
                 </>
               ) : (
                 <Link
                   href={`${icon.link}`}
-                  className="py-2 rounded-[50px] w-2/3 px-2 transition hover:bg-zinc-800 flex items-center  font-semibold"
+                  className="py-2 rounded-[50px] w-2/3 px-2 transition hover:bg-zinc-800 flex items-center font-medium"
                 >
-                  {icon.icon}
-
-                  <span className="ml-3">{icon.name}</span>
+                  <Image
+                    src={`${icon.icon}`}
+                    alt="home icon"
+                    width={27}
+                    height={27}
+                  />
+                  {path === `/${icon.name}` || path === "/" && `${icon.name}` === "home" ? <span className="ml-3 font-semibold text-[19px]">{`${toCapitalize(icon.name)}`}</span> : <span className="ml-3 text-[19px]">{`${toCapitalize(icon.name)}`}</span>}
+                  
                 </Link>
               )}
             </li>

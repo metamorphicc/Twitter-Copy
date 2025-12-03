@@ -1,35 +1,34 @@
-import HomeIcon from "@/public/HomeIcon/HomeIcon";
-import { ArrowIcon } from "@/public/HomeIcon/HomeIcon";
+
 
 export const menuIcons = [
   {
     id: 1,
-    icon: <HomeIcon/>,
-    name: "Home",
+    icon: "/house.svg",
+    name: "home",
     link: "/"
   },
   {
     id: 2,
     icon: "/search.svg",
-    name: "Explore",
+    name: "explore",
     link: `/explore`
   },
   {
     id: 3,
     icon: "/bell.svg",
-    name: "Notifications",
-    link: `/notification`
+    name: "notifications",
+    link: `/notifications`
   },
   {
     id: 4,
     icon: "/envelope.svg",
-    name: "Messages",
+    name: "messages",
     link: `/messages`
 
   },
   {
     id: 5,
-    icon: "/republican.svg",
+    icon: "/crocodile.svg",
     name: "Grok",
     link: `/grok`
 
@@ -37,26 +36,26 @@ export const menuIcons = [
   {
     id: 6,
     icon: "/list.svg",
-    name: "Lists",
+    name: "lists",
     link: "/lists"
   },
   {
     id: 7,
     icon: "/bookmark.svg",
-    name: "Bookmarks",
+    name: "bookmarks",
     link: "/bookmarks"
   },
   {
     id: 8,
     icon: "/department.svg",
-    name: "Communities",
+    name: "communities",
     link: "/communities"
 
   },
   {
     id: 9,
     icon: "/premium.svg",
-    name: "Premium",
+    name: "premium",
     link: "/premium"
 
   },

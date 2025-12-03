@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import RightMenu from "../right_menu/RightMenu";
 import LeftMenu from "../left_menu/LeftMenu";
 import Image from "next/image";
@@ -7,7 +7,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 export function List() {
-  const router = useRouter()
+  const router = useRouter();
   return (
     <>
       <div className="w-full flex justify-center">
@@ -16,72 +16,81 @@ export function List() {
           <div className="border border-zinc-700 min-w-70 w-145 h-full flex flex-col items-center">
             <div className=" w-full bg-zinc-950 flex flex-col">
               <div className="flex justify-between p-3 items-center">
-                <h1 className="font-bold tracking-wide text-[22px] pl-2">
-                  
-                </h1>
-                <div>
-                    <Link href={`#`} onClick={() => {router.back()}}>
+                <div className="flex items-center">
+                  <div>
+                  <Link
+                    href={"/"}
+                    className="hover:bg-zinc-700 transition duration-200 rounded-[50px] w-8 h-8 cursor-pointer flex justify-center items-center mr-3"
+                  >
                     <Image
-                        src={"/search.svg"}
-                        alt="fsadfdsa"
-                        width={17}
-                        height={17}
-                        className=""
-                      ></Image>
-                    </Link>
+                      src={"/left.svg"}
+                      alt="asdf"
+                      width={15}
+                      height={15}
+                    ></Image>
+                  </Link>
                 </div>
-                <div className="flex justify-center w-full items-center">
-                    <div
-                      className="w-[90%] h-[45px] flex
+                <div className="flex justify-center w-110 items-center">
+                  <div
+                    className="w-[90%] h-[45px] flex
                                          border border-zinc-700 rounded-[60px] mt-2"
+                  >
+                    <Image
+                      src={"/search.svg"}
+                      alt="fsadfdsa"
+                      width={17}
+                      height={17}
+                      className="ml-5"
+                    ></Image>
+                    <form action="" className="h-full flex w-full">
+                      <input
+                        type="text"
+                        placeholder={"Search lists"}
+                        name="search"
+                        className="w-full placeholder-white placeholder:font-light placeholder:text-sm h-full outline-none ml-2"
+                      />
+                    </form>
+                  </div>
+                </div>
+                </div>
+                
+                <div className="flex gap-1 justify-between">
+                  <div className="flex justify-around">
+                    <Link
+                      href={"/"}
+                      className="hover:bg-zinc-700 transition duration-200 rounded-[50px] w-8 h-8 cursor-pointer flex justify-center items-center"
                     >
                       <Image
-                        src={"/search.svg"}
-                        alt="fsadfdsa"
-                        width={17}
-                        height={17}
-                        className="ml-5"
-                      ></Image>
-                      <form action="" className="h-full flex w-full">
-                        <input
-                          type="text"
-                          placeholder={"Search lists"}
-                          name="search"
-                          className="w-full placeholder-white placeholder:font-light placeholder:text-sm h-full outline-none ml-2"
-                        />
-                      </form>
-                    </div>
-                  </div>
-                  <div className="flex gap-4">
-                    <div>
-                    <Image
-                        src={"/search.svg"}
-                        alt="fsadfdsa"
+                        src={"/addlist.svg"}
+                        alt="asdf"
                         width={20}
                         height={20}
-                        className=""
                       ></Image>
-                    </div>
-                    <div>
-                    <Image
-                        src={"/search.svg"}
-                        alt="fsadfdsa"
-                        width={20}
-                        height={20}
-                        className=""
-                      ></Image>
-                    </div>
+                    </Link>
                   </div>
+                  <div>
+                  <Link
+                      href={"/"}
+                      className="hover:bg-zinc-700 transition duration-200 rounded-[50px] w-8 h-8 cursor-pointer flex justify-center items-center"
+                    >
+                      <Image
+                        src={"/threepoints.svg"}
+                        alt="asdf"
+                        width={15}
+                        height={15}
+                      ></Image>
+                    </Link>
+                  </div>
+                </div>
               </div>
 
               <div className="h-50 p-5 text-[20px] font-bold">
                 <h1>Discover new Lists</h1>
               </div>
-              
             </div>
             <div className="flex border-zinc-700 h-full w-full bg-zinc-950 p-5 text-[20px] font-bold border-t">
-                Your lists
-              </div>
+              Your lists
+            </div>
           </div>
         </div>
         <RightMenu />

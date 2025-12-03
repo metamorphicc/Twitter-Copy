@@ -23,10 +23,10 @@ export function Notification(props: any) {
                 </h1>
                 <Link
                   href={"/"}
-                  className="hover:bg-zinc-700 transition duration-200 rounded-[50px] w-9 h-9 cursor-pointer flex justify-center"
+                  className="hover:bg-zinc-700 transition duration-200 rounded-[50px] w-8 h-8 cursor-pointer flex justify-center items-center"
                 >
                   <Image
-                    src={"/house.svg"}
+                    src={"/gear.svg"}
                     alt="asdf"
                     width={18}
                     height={18}
@@ -43,7 +43,13 @@ export function Notification(props: any) {
                     }}
                     className="w-full h-full flex justify-center items-center"
                   >
-                    All
+                    {path === "/notification" ? 
+                    <p className="text-white font-bold">
+                      All
+                    </p> : 
+                    <p> All </p>
+                    }
+                    
                   </Link>
                 </div>
 
@@ -56,7 +62,12 @@ export function Notification(props: any) {
                     }}
                     className="w-full h-full flex justify-center items-center"
                   >
-                    Verified
+                    {path === "/notification/verified" ? 
+                    <p className="text-white font-bold">
+                      Verified
+                    </p> : 
+                    <p>Verified</p>
+                    }
                   </Link>
                 </div>
 
@@ -69,7 +80,12 @@ export function Notification(props: any) {
                     }}
                     className="w-full h-full flex justify-center items-center"
                   >
-                    Mentions
+                    {path === "/notification/mentions" ? 
+                    <p className="text-white font-bold">
+                      Mentions
+                    </p> : 
+                    <p>Mentions</p>
+                    }
                   </Link>
                 </div>
               </div>
