@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --webpack",
+    "dev": "next dev",
     "build": "next build",
-    "start": "",
+    "start": "next start",
     "lint": "eslint"
   },
   "dependencies": {
@@ -29,6 +29,6 @@
     "baseline-browser-mapping": "^2.9.2",
     "eslint": "^9",
     "eslint-config-next": "16.0.3",
-    "typescript": "^5"
+    "typescript": "^5"    
   }
 }

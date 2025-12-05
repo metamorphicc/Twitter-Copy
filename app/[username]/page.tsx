@@ -14,7 +14,8 @@ import { ThemeProvider } from "@/app/context/ThemeContext";
 import ThemeButton from "@/app/button";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
-export function ProfileDate(props: any) {
+
+function ProfileDate(props: any) {
   const [date, setDate] = useState("");
 
   useEffect(() => {
