@@ -26,6 +26,10 @@
   height: 100vh
 }
 
+/* .btn-anim {
+  @apply 
+} */
+
 body, html {
   box-sizing: border-box;
   /* overflow: hidden; */ 

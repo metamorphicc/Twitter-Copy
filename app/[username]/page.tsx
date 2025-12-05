@@ -12,7 +12,8 @@ import LeftMenu from "@/app/(components)/left_menu/LeftMenu";
 import RightMenu from "@/app/(components)/right_menu/RightMenu";
 import { ThemeProvider } from "@/app/context/ThemeContext";
 import ThemeButton from "@/app/button";
-
+import Link from "next/link";
+import { signIn } from "next-auth/react";
 export function ProfileDate(props: any) {
   const [date, setDate] = useState("");
 
@@ -39,20 +40,14 @@ export default function Profile() {
         <div className="w-full border border-zinc-700 h-2/3 flex-col">
           {/* ДИВ ДЛЯ ШАПКИ */}
           <div className="w-full h-1/2 bg-gray-700/50 flex justify-center items-center text-xl">
-            <button
-              onClick={() => {
-                router.replace("/");
-              }}
-              className="border p-10 cursor-pointer shadow rounded-[18px] h-10 flex items-center text-red-700 transition hover:scale-110"
-            >
-              BACK TO HOME
-            </button>
+            
           </div>
 
           {/* ДИВ ДЛЯ ШАПКИ */}
 
-          <div className="w-full h-1/2 ">
-            <div className="break-words m-10 flex-col">
+          <div className="w-full flex flex-col justify-between h-1/2">
+            <div>
+              <div className="break-words m-6 flex-col">
               <div className="flex justify-between mb-5">
                 <div className="flex-col">
                   <p>{profiles[decode].name}</p>
@@ -63,10 +58,15 @@ export default function Profile() {
                   Edit profile
                 </button>
               </div>
-              <div className="min-h-20 mt-1.5">
+              <div className="min-h-5 mt-1.5 mb-3">
                 <p>{profiles[decode].description}</p>
               </div>
-              <p className="flex gap-2 text-sm">
+              
+            </div>
+            </div>
+            
+        <div className="flex items-start flex-col">
+          <p className="flex gap-2 text-sm ml-6">
                 <Image
                   src="/calendar.svg"
                   alt="calendar"
@@ -75,9 +75,52 @@ export default function Profile() {
                 ></Image>
                 Joined: {ProfileDate(profilesInfo[2].created_at)}
               </p>
+          <div className="flex gap-5 ml-6 text-[15px]">
+            <div>
+              50000 <span className="text-zinc-500">подписан</span>
+            </div>
+            <div>
+              50000 <span className="text-zinc-500">подпищики</span>  
+            </div>
+          </div>
+          <div className="w-full flex items-center justify-center text-[16px] text-zinc-500 mt-5">
+            <div className="w-full h-10"
+            onClick={() => {console.log("sods")}}>
+              <Link href="#" className="w-full flex items-center justify-center hover:bg-zinc-700 transition duration-200 h-full">
+                Posts
+              </Link>
+            </div>
+            <div className="w-full h-10">
+            <Link href="#" className="w-full flex items-center justify-center hover:bg-zinc-700 transition duration-200 h-full">
+                Replies
+              </Link>
+            </div>
+            <div className="w-full h-10">
+            <Link href="#" className="w-full flex items-center justify-center hover:bg-zinc-700 transition duration-200 h-full">
+                Highlights
+              </Link>
+            </div>
+            <div className="w-full h-10">
+            <Link href="#" className="w-full flex items-center justify-center hover:bg-zinc-700 transition duration-200 h-full">
+                Articles
+              </Link>
+            </div>
+            <div className="w-full h-10"> 
+            <Link href="#" className="w-full flex items-center justify-center hover:bg-zinc-700 transition duration-200 h-full">
+                Media
+              </Link>
+            </div>
+            <div className="w-full h-10"
+            onClick={() => signIn("google")}> 
+            <Link href="#" className="w-full flex items-center justify-center hover:bg-zinc-700 transition duration-200 h-full">
+                Likes
+              </Link>
             </div>
           </div>
         </div>
+          </div>
+        </div>
+        
       </div>
       <RightMenu />
     </div>

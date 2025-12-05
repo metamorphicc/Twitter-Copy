@@ -33,6 +33,7 @@ export function Explore() {
                       type="text"
                       placeholder={"Search"}
                       name="search"
+                      autoComplete="off"
                       className="w-full placeholder-white placeholder:font-light placeholder:text-sm h-full outline-none ml-2"
                     />
                   </form>
