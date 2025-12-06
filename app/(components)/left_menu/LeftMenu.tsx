@@ -38,8 +38,8 @@ export function LeftMenu(): any {
             <li className="gap-6" key={icon.id}>
               {icon.name === "More" ? (
                 <>
-                  <button
-                    className="py-2 rounded-[50px] w-2/3 px-2 transition hover:bg-zinc-800 flex items-center relative font-semibold"
+                  <div
+                    className="group w-min-30 flex font-medium relative cursor-pointer"
                     onClick={toggleMenu}
                   >
                     {more && (
@@ -47,32 +47,46 @@ export function LeftMenu(): any {
                         <div className="fixed w-screen inset-0 z-90"></div>
 
                         <DropoutMenu />
-                        <button onClick={toggleMenu}></button>
                       </>
                     )}
-                    {<Image
+                    
+                      <div className="transition duration-100 group-hover:bg-zinc-800 flex p-3 rounded-[50px]">
+                        <Image
                       src={`${icon.icon}`}
                       alt="home icon"
                       width={27}
                       height={27}
-                    />}
-                    <span className="ml-3">More</span>
-                  </button>
+                    />
+                        
+                        
+                        {path === `/${icon.name}` || path === "/" && `${icon.name}` === "home" ? <span className="ml-3 font-semibold text-[19px] pl-2">
+                        {`${toCapitalize(icon.name)}`}</span> : <span className="ml-3 text-[19px] pl-2">{`${toCapitalize(icon.name)}`}</span>}
+                    </div>
+                  </div>
                 </>
               ) : (
-                <Link
+                <div>
+                  <Link
                   href={`${icon.link}`}
-                  className="py-2 rounded-[50px] w-2/3 px-2 transition hover:bg-zinc-800 flex items-center font-medium"
+                  className="group w-min-30 flex font-medium"
                 >
+                <div className="transition duration-100 group-hover:bg-zinc-800 flex p-3 rounded-[50px]">
                   <Image
                     src={`${icon.icon}`}
                     alt="home icon"
                     width={27}
                     height={27}
+                    className=""
                   />
-                  {path === `/${icon.name}` || path === "/" && `${icon.name}` === "home" ? <span className="ml-3 font-semibold text-[19px]">{`${toCapitalize(icon.name)}`}</span> : <span className="ml-3 text-[19px]">{`${toCapitalize(icon.name)}`}</span>}
+                  
+                    {path === `/${icon.name}` || path === "/" && `${icon.name}` === "home" ? <span className="ml-3 font-semibold text-[19px] pl-2">
+                    {`${toCapitalize(icon.name)}`}</span> : <span className="ml-3 text-[19px] pl-2">{`${toCapitalize(icon.name)}`}</span>}
+                  </div>
+                  
                   
                 </Link>
+                </div>
+                
               )}
             </li>
           ))}

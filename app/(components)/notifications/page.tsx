@@ -39,11 +39,11 @@ export function Notification(props: any) {
                     href={"#"}
                     onClick={(e) => {
                       e.preventDefault();
-                      router.replace("/notification");
+                      router.replace("/notifications");
                     }}
                     className="w-full h-full flex justify-center items-center"
                   >
-                    {path === "/notification" ? 
+                    {path === "/notifications" ? 
                     <p className="text-white font-bold">
                       All
                     </p> : 
@@ -58,11 +58,11 @@ export function Notification(props: any) {
                     href={"#"}
                     onClick={(e) => {
                       e.preventDefault();
-                      router.push("/notification/verified");
+                      router.push("/notifications/verified");
                     }}
                     className="w-full h-full flex justify-center items-center"
                   >
-                    {path === "/notification/verified" ? 
+                    {path === "/notifications/verified" ? 
                     <p className="text-white font-bold">
                       Verified
                     </p> : 
@@ -76,11 +76,11 @@ export function Notification(props: any) {
                     href={"#"}
                     onClick={(e) => {
                       e.preventDefault();
-                      router.push("/notification/mentions");
+                      router.push("/notifications/mentions");
                     }}
                     className="w-full h-full flex justify-center items-center"
                   >
-                    {path === "/notification/mentions" ? 
+                    {path === "/notifications/mentions" ? 
                     <p className="text-white font-bold">
                       Mentions
                     </p> : 

@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation"
 export function SubSec() {
     const path = usePathname()
     let value = "flex justify-center";
-    if (path != "/") value = "flex justify-center hidden"
+    if (path != "/home") value = "flex justify-center hidden"
     
     return (
         
