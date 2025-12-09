@@ -15,20 +15,37 @@ import ThemeButton from "@/app/button";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
 
+
+
 function ProfileDate(props: any) {
   const [date, setDate] = useState("");
 
   useEffect(() => {
     setDate(new Date(props).toLocaleDateString());
+    
   }, []);
 
   return <span>{date}</span>;
 }
 
 export default function Profile() {
+  const [row, setRow] = useState<any[]>([]);
   useEffect(() => {
     document.title = "Profile";
-  });
+    async function getAllPosts() {
+      try {
+        const rows = await fetch("http://localhost:8089/api/posts")
+        const data = await rows.json()
+        setRow(data)
+        return rows
+        
+      } catch(e){
+        console.log(e);
+        
+      }
+    }
+    getAllPosts()
+  }, []);
   const router = useRouter();
   const urls: string = usePathname();
   let result = urls.split("/").pop() as keyof typeof profiles;
@@ -51,7 +68,7 @@ export default function Profile() {
               <div className="break-words m-6 flex-col">
               <div className="flex justify-between mb-5">
                 <div className="flex-col">
-                  <p>{profiles[decode].name}</p>
+                  <p>{row[0]}</p>
                   <p>{profiles[decode].tag}</p>
                 </div>
 

@@ -5,6 +5,7 @@ import tweets from "../../shared/data/tweets.data";
 import name from "../../server/fetchInput";
 import { LeftMenu } from "../left_menu/LeftMenu";
 import RightMenu from "../right_menu/RightMenu";
+import { useRef, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
@@ -13,6 +14,29 @@ import AutoResizeTextarea from "@/app/AutoResizeTextArea";
 export default function Home() {
   const path = usePathname();
   const router = useRouter();
+
+  const ref = useRef<HTMLTextAreaElement>(null);
+  const [text, setText] = useState("");
+  const handleAction = (e: React.FormEvent) => {
+    e.preventDefault();
+    fetch("http://localhost:8089/api/posts", {
+      method: "POST",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify({ text }),
+    });
+    setText("")
+    if (ref.current) {
+      ref.current.style.height = "auto"
+    }
+  };
+
+  const handleInput = () => {
+    const el = ref.current;
+    if (!el) return;
+    el.style.height = "auto";
+    el.style.height = el.scrollHeight + "px";
+  };
+
   return (
     <div className="w-full flex justify-center">
       <LeftMenu />
@@ -56,46 +80,56 @@ export default function Home() {
           </div>
 
           <div className="flex flex-col w-full">
-            <AutoResizeTextarea />
+            <form onSubmit={handleAction}>
+              <textarea
+                ref={ref}
+                onInput={handleInput}
+                className="w-full overflow-hidden resize-none bg-black text-white p-2 pr-4 outline-none"
+                placeholder="What’s happening?"
+                value={text}
+                onChange={(e) => {
+                  setText(e.target.value);
+                }}
+              />
 
-            
-            <div className="flex justify-between items-center mt-3">
-              <ul className="flex gap-4 text-sky-500">
-                <li>
-                  <Image src="/picture.svg" alt="" width={21} height={21} />
-                </li>
-                <li>
-                  <Image src="/gif.svg" alt="" width={21} height={21} />
-                </li>
-                <li>
-                  <Image src="/poll.svg" alt="" width={21} height={21} />
-                </li>
-                <li>
-                  <Image src="/smile.svg" alt="" width={21} height={21} />
-                </li>
-                <li>
-                  <Image src="/calendar.svg" alt="" width={21} height={21} />
-                </li>
-                <li>
-                  <Image
-                    src="/mapslocation.svg"
-                    alt=""
-                    width={21}
-                    height={21}
-                  />
-                </li>
-              </ul>
+              <div className="flex justify-between items-center mt-3">
+                <ul className="flex gap-4 text-sky-500">
+                  <li>
+                    <Image src="/picture.svg" alt="" width={21} height={21} />
+                  </li>
+                  <li>
+                    <Image src="/gif.svg" alt="" width={21} height={21} />
+                  </li>
+                  <li>
+                    <Image src="/poll.svg" alt="" width={21} height={21} />
+                  </li>
+                  <li>
+                    <Image src="/smile.svg" alt="" width={21} height={21} />
+                  </li>
+                  <li>
+                    <Image src="/calendar.svg" alt="" width={21} height={21} />
+                  </li>
+                  <li>
+                    <Image
+                      src="/mapslocation.svg"
+                      alt=""
+                      width={21}
+                      height={21}
+                    />
+                  </li>
+                </ul>
 
-              <button
-                className="
+                <button
+                  className="
           bg-sky-500 text-white font-semibold
           rounded-full px-4 py-1.5 text-[15px]
           hover:bg-sky-600 transition
         "
-              >
-                Post
-              </button>
-            </div>
+                >
+                  Post
+                </button>
+              </div>
+            </form>
           </div>
         </div>
 
