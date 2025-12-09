@@ -1,20 +1,38 @@
 "use client";
 
+import { log } from "console";
 import LeftMenu from "../left_menu/LeftMenu";
 import RightMenu from "../right_menu/RightMenu";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
 
-async function getApiProfiles() {
-  const res = await fetch(`http://localhost:8089/api/profiles`).then(res => {res.json()})
-  return res
-}
 
 export function Notification(props: any) {
   const router = useRouter();
   const path = usePathname();
-
+  // const [profiles, setProfiles] = useState<any[""]>([]);
+  // const [loading, setLoading] = useState(true);
+  
+  // useEffect(() => {
+  //   async function load(){
+  //   try {
+  //     const res = await fetch("http://localhost:8089/api/profiles");
+  //     const data = await res.json();
+  //     setProfiles(data);
+  //   } catch(e) {
+  //     console.log(e);
+      
+  //   } finally {
+  //     setLoading(false)
+  //   }
+    
+    
+  // }
+  // load()
+  // }, [])
+  // if (loading) return <div>loading...</div>
   return (
     <>
       <div className="w-full flex justify-center">
@@ -44,7 +62,7 @@ export function Notification(props: any) {
                     href={"#"}
                     onClick={(e) => {
                       e.preventDefault();
-                      router.replace("/notifications");
+                      router.push("/notifications/");
                     }}
                     className="w-full h-full flex justify-center items-center"
                   >

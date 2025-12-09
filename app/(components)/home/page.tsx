@@ -45,7 +45,6 @@ export default function Home() {
           </div>
         </div>
         <div className="w-full px-4 py-3 border-x border-zinc-700 flex gap-4 ">
-          {/* Аватар */}
           <div className="flex-shrink-0">
             <Image
               src="/morph.jpg"
@@ -56,14 +55,11 @@ export default function Home() {
             />
           </div>
 
-          {/* Правый блок */}
           <div className="flex flex-col w-full">
-            {/* Текстовое поле */}
             <AutoResizeTextarea />
 
-            {/* Иконки + кнопка */}
+            
             <div className="flex justify-between items-center mt-3">
-              {/* Иконки */}
               <ul className="flex gap-4 text-sky-500">
                 <li>
                   <Image src="/picture.svg" alt="" width={21} height={21} />
@@ -90,7 +86,6 @@ export default function Home() {
                 </li>
               </ul>
 
-              {/* Post */}
               <button
                 className="
           bg-sky-500 text-white font-semibold
