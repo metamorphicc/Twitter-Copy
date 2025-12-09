@@ -6,6 +6,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
+async function getApiProfiles() {
+  const res = await fetch(`http://localhost:8089/api/profiles`).then(res => {res.json()})
+  return res
+}
+
 export function Notification(props: any) {
   const router = useRouter();
   const path = usePathname();
@@ -93,7 +98,7 @@ export function Notification(props: any) {
             <div className="w-full h-full flex">
                     <div className="w-full flex flex-col items-center">
                       <div className="p-5 items-center flex flex-col m-8">
-                      <h4 className="font-extrabold text-[30px] text-wrap">Nothing to see here - yet</h4>
+                      <h4 className="font-extrabold text-[30px] text-wrap"></h4>
                       <span>When someone mentions you, you’ll find it here.</span>
                       </div>
                       
