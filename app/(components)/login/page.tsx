@@ -1,5 +1,5 @@
 import Image from "next/image";
-
+import GoogleButton from "./googleButton";
 export default function Login() {
   return (
     <div className="h-screen w-screen fixed flex">
@@ -23,7 +23,7 @@ export default function Login() {
           
           <div className="flex flex-col gap-5">
             
-              
+              <GoogleButton/>
       
               <button className="px-4 py-2 w-[50%] border cursor-pointer flex gap-2 border-slate-200 dark:border-slate-700 rounded-lg text-slate-700 dark:text-slate-200 hover:border-slate-400 dark:hover:border-slate-500 hover:text-slate-900 dark:hover:text-slate-300 hover:shadow transition duration-150">
                 <Image
