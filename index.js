@@ -1,24 +1,20 @@
-import express from "express"
-import next from "next"
+import mysql from "mysql2/promise";
+import dotenv from "dotenv";
+dotenv.config();
 
-const dev = process.env.NODE_ENV !== "production"
-const app = next({ dev })
-const handle = app.getRequestHandler()
+async function main() {
+  const pool = mysql.createPool({
+    host: "127.0.0.1",
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    port: process.env.DB_PORT ? Number(process.env.DB_PORT) : 3306,
+  });
 
-const server = express()
-const PORT = 3000
+  const [rows] = await pool.query("SELECT 1 AS ok");
+  console.log(rows);
+}
 
-// твои кастомные маршруты express
-server.get("/explore", (req, res) => {
-  console.log(req.url)
-  res.send("ok")
-})
+main().catch(console.error);
 
-// подключаем Next.js на все остальные пути
-app.prepare().then(() => {
-  server.all("/", (req, res) => handle(req, res))
 
-  server.listen(PORT, () => {
-    console.log("server was deployed successful here: " + PORT)
-  })
-})

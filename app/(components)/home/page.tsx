@@ -5,11 +5,15 @@ import tweets from "../../shared/data/tweets.data";
 import name from "../../server/fetchInput";
 import { LeftMenu } from "../left_menu/LeftMenu";
 import RightMenu from "../right_menu/RightMenu";
-import { useRef, useState } from "react";
-import { useRouter, usePathname } from "next/navigation";
+import { useRef, useState, useEffect } from "react";
+import { useRouter, usePathname, redirect } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import AutoResizeTextarea from "@/app/AutoResizeTextArea";
+import { getServerSession } from "next-auth";
+import {handler} from "../../api/auth/[...nextauth]/route"
+import { checkSes } from "./checkSession";
+
 
 export default function Home() {
   const path = usePathname();
@@ -17,6 +21,9 @@ export default function Home() {
 
   const ref = useRef<HTMLTextAreaElement>(null);
   const [text, setText] = useState("");
+  useEffect(() => {
+    checkSes()
+  })
   const handleAction = (e: React.FormEvent) => {
     e.preventDefault();
     fetch("http://localhost:8089/api/posts", {
