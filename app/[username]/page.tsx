@@ -14,7 +14,7 @@ import { ThemeProvider } from "@/app/context/ThemeContext";
 import ThemeButton from "@/app/button";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
-
+import { useSession } from "next-auth/react";
 
 
 function ProfileDate(props: any) {
@@ -29,6 +29,7 @@ function ProfileDate(props: any) {
 }
 
 export default function Profile() {
+  const session = useSession();
   const [row, setRow] = useState<any[]>([]);
   useEffect(() => {
     document.title = "Profile";
@@ -44,13 +45,30 @@ export default function Profile() {
         
       }
     }
-    getAllPosts()
+    
+    // async function getAllProfiles() {
+    //   try {
+    //     const rows = await fetch(`http://localhost:8089/api/profileId`,
+    //       {
+    //         credentials: "include"
+    //       }
+    //     )
+    //     const data = await rows.json()
+    //     setRow(data)
+    //     return rows
+        
+    //   } catch(e){
+    //     console.log(e);
+        
+    //   }
+    // }
+    // getAllProfiles()
   }, []);
   const router = useRouter();
   const urls: string = usePathname();
   let result = urls.split("/").pop() as keyof typeof profiles;
   const decode = decodeURIComponent(result) as keyof typeof profiles;
-  console.log(result);
+  console.log(session)
   return (
     <div className="flex h-screen justify-center">
       <LeftMenu />

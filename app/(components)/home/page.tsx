@@ -13,17 +13,16 @@ import AutoResizeTextarea from "@/app/AutoResizeTextArea";
 import { getServerSession } from "next-auth";
 import {handler} from "../../api/auth/[...nextauth]/route"
 import { checkSes } from "./checkSession";
-
+import { useSession } from "next-auth/react";
 
 export default function Home() {
   const path = usePathname();
   const router = useRouter();
-
+  const session = useSession();
   const ref = useRef<HTMLTextAreaElement>(null);
   const [text, setText] = useState("");
-  useEffect(() => {
-    checkSes()
-  })
+  console.log(session);
+  
   const handleAction = (e: React.FormEvent) => {
     e.preventDefault();
     fetch("http://localhost:8089/api/posts", {
@@ -36,6 +35,8 @@ export default function Home() {
       ref.current.style.height = "auto"
     }
   };
+  checkSes()
+  
 
   const handleInput = () => {
     const el = ref.current;

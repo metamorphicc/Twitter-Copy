@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Lato } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "./context/ThemeContext";
-
+import ProviderSes from "./context/ProviderContext";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -12,7 +12,6 @@ const lato = Lato({
   variable: "--font-lato",
   subsets: ["latin"],
   weight: ["400", "700"],
-  
 });
 
 export const metadata: Metadata = {
@@ -27,13 +26,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${lato.className} antialiased`}
-      >
-        <ThemeProvider>
-        {children}
-        </ThemeProvider>
-
+      <body className={`${lato.className} antialiased`}>
+        <ProviderSes>
+          <ThemeProvider>{children}</ThemeProvider>
+        </ProviderSes>
       </body>
     </html>
   );
