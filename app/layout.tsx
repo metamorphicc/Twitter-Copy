@@ -28,7 +28,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${lato.className} antialiased`}>
         <ProviderSes>
-          <ThemeProvider>{children}</ThemeProvider>
+          <ThemeProvider>
+          <div id="modal-root" />
+            {children}
+            
+          </ThemeProvider>
         </ProviderSes>
       </body>
     </html>

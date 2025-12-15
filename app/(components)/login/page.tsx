@@ -1,6 +1,13 @@
+"use client"
 import Image from "next/image";
 import GoogleButton from "./googleButton";
+import Modal from "@/app/shared/components/modalWindow";
+import { Portal } from "../../shared/components/Portal"
+import { useState } from "react";
+
 export default function Login() {
+  const [isVisible, setIsVisible] = useState(false);
+
   return (
     <div className="h-screen w-screen fixed flex">
       <div className="w-full flex justify-center items-center">
@@ -52,11 +59,20 @@ export default function Login() {
             <hr className="w-full"/> <p className="px-3">OR</p> <hr className="w-full"/>
           </div>
           <button className="bg-white text-black px-4 py-2 border flex items-center w-[50%]
-          cursor-pointer flex gap-2 border-slate-200 dark:border-slate-700 rounded-lg hover:border-slate-400 dark:hover:border-slate-500 hover:shadow transition duration-150">
+          cursor-pointer flex gap-2 border-slate-200 dark:border-slate-700 rounded-lg hover:border-slate-400 dark:hover:border-slate-500 hover:shadow transition duration-150"
+          onClick={() => {
+            setIsVisible(!isVisible)
+          }}
+          >
             
                 <span>Create account</span>
               </button>
-
+          {isVisible && <Portal id="modal-root">
+              <Modal onClick={() => {
+                setIsVisible(!isVisible)
+              }}>
+              </Modal>
+            </Portal>}
         </div>
       </div>
     </div>
