@@ -26,7 +26,7 @@ export function LeftMenu(): any {
           <li>
             <Link href={"/"} onClick={() => router.replace("/")}>
               <Image
-                src={"/X_logo.png"}
+                src={"/Xlogo.svg"}
                 alt="asdf"
                 width={40}
                 height={40}
