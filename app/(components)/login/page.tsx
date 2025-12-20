@@ -98,19 +98,43 @@ export default function Login() {
                   </div>
                   <div className="w-full space-y-2 my-6">
                     <h1 className="font-bold text-lg">Date of birth</h1>
-                    <p className="text-sm text-zinc-400">
+                    <p className="text-sm text-zinc-400 mb-6">
                       This will not be displayed publicly. Verify your own age,
                       even if this account is intended for a business, a pet, or
                       someone else.
                     </p>
+                    <div className="flex justify-around space-x-3">
+                      <div className="border border-zinc-700 w-full">
+                      <select name="" id="selector" className="p-2 w-full">
+                      <option value="value1" >june</option>
+                      <option value="value2">july</option>
+                      <option value="value3">august</option>
+                    </select>
+                    </div>
+                    <div className="border border-zinc-700 w-full">
+                      <select name="" id="selector" className="p-2 w-full">
+                      <option value="value1" >june</option>
+                      <option value="value2">july</option>
+                      <option value="value3">august</option>
+                    </select>
+                    </div>
+                    <div className="border border-zinc-700 w-full">
+                      <select name="" id="selector" className="p-2 w-full">
+                      <option value="value1" >june</option>
+                      <option value="value2">july</option>
+                      <option value="value3">august</option>
+                    </select>
+                    </div>
+                    </div>
+                    
                   </div>
                 </div>
-                  
-                <div className="w-[70%]">
+
+                <div className="w-[70%] mt-10">
                   <button
                     type="submit"
                     form="my-form"
-                    className="border border-zinc-700  cursor-pointer w-full h-full mb-5"
+                    className="border border-zinc-700 rounded-xl hover:bg-zinc-700 transition cursor-pointer w-full h-full mb-5"
                   >
                     <p className="font-black text-border-zinc-700">Next</p>
                   </button>
