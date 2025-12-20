@@ -69,7 +69,7 @@ export default function Login() {
                   setIsOpen(false);
                 }}
               >
-                <div className=" h-[50%] w-[70%] justify-center  flex-col">
+                <div className=" w-[70%] justify-center  flex-col">
                   <div className="h-20 flex items-center">
                     <h1 className="font-bold text-[30px]">Create an Account</h1>
                   </div>
@@ -98,11 +98,13 @@ export default function Login() {
                       />
                     </form>
                   </div>
-                  <div className="w-full">
-                    <div className="">
-                      <h1 className="font-bold ">Date of birth</h1>
-                      <span className="">This will not be displayed publicly. Verify your own age, even if this account is intended for a business, a pet, or someone else.</span>
-                    </div>
+                  <div className="w-full space-y-2 mb-6">
+                    <h1 className="font-bold text-lg">Date of birth</h1>
+                    <p className="text-sm text-zinc-400">
+                      This will not be displayed publicly. Verify your own age,
+                      even if this account is intended for a business, a pet, or
+                      someone else.
+                    </p>
                   </div>
                 </div>
 
