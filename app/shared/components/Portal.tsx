@@ -5,9 +5,9 @@ type PortalProps = { id: string; children: React.ReactNode; };
 
 const PORTAL_ERROR_MSG ='There is no portal container in markup. Please add portal container with proper id attribute.';
 
-export const Portal = (props: PortalProps) => {
-  const { id, children } = props;
-  const [container, setContainer] = useState<HTMLElement>();
+export const Portal = ({id, children}: PortalProps) => {
+
+  const [container, setContainer] = useState<HTMLElement | null>(null);
 
   useEffect(() => {
     if (id) {

@@ -10,6 +10,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@react-hooks-hub/use-click-outside": "^1.0.0",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "mysql2": "^3.15.3",

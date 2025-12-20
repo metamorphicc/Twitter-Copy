@@ -6,7 +6,7 @@ import { Portal } from "../../shared/components/Portal"
 import { useState } from "react";
 
 export default function Login() {
-  const [isVisible, setIsVisible] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className="h-screen w-screen fixed flex">
@@ -61,16 +61,14 @@ export default function Login() {
           <button className="bg-white text-black px-4 py-2 border flex items-center w-[50%]
           cursor-pointer flex gap-2 border-slate-200 dark:border-slate-700 rounded-lg hover:border-slate-400 dark:hover:border-slate-500 hover:shadow transition duration-150"
           onClick={() => {
-            setIsVisible(!isVisible)
+            setIsOpen(!isOpen)
           }}
           >
             
                 <span>Create account</span>
               </button>
-          {isVisible && <Portal id="modal-root">
-              <Modal onClick={() => {
-                setIsVisible(!isVisible)
-              }}>
+          {isOpen && <Portal id="modal-root">
+              <Modal isOpen={isOpen}>
               </Modal>
             </Portal>}
         </div>
