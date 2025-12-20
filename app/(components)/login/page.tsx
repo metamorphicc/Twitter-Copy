@@ -69,12 +69,51 @@ export default function Login() {
                   setIsOpen(false);
                 }}
               >
-                <div className="flex items-center h-[83%] ">
-                  <div className="">
-                    {/* <h1 className="font-bold text-[30px] p-5 ">
-                      Create an account
-                    </h1> */}
+                <div className=" h-[50%] w-[70%] justify-center  flex-col">
+                  <div className="h-20 flex items-center">
+                    <h1 className="font-bold text-[30px]">Create an Account</h1>
                   </div>
+
+                  <div className="flex flex-col items-center justify-center h-[50%] w-full">
+                    <form action="" className="w-full pb-7" id="my-form">
+                      <input
+                        type="text"
+                        required
+                        maxLength={60}
+                        id="text"
+                        name="text"
+                        className="border border-zinc-700  p-3 w-full"
+                        placeholder="Name"
+                      />
+                    </form>
+                    <form action="" className="w-full " id="my-form">
+                      <input
+                        type="email"
+                        required
+                        maxLength={60}
+                        id="text"
+                        name="text"
+                        className="border p-3 w-full border-zinc-700 "
+                        placeholder="Email"
+                      />
+                    </form>
+                  </div>
+                  <div className="w-full">
+                    <div className="">
+                      <h1 className="font-bold ">Date of birth</h1>
+                      <span className="">This will not be displayed publicly. Verify your own age, even if this account is intended for a business, a pet, or someone else.</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="w-[70%]">
+                  <button
+                    type="submit"
+                    form="my-form"
+                    className="border border-zinc-700  cursor-pointer w-full h-full mb-5"
+                  >
+                    <p className="font-black text-border-zinc-700">Next</p>
+                  </button>
                 </div>
               </Modal>
             </Portal>

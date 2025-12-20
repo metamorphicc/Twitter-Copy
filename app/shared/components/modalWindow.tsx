@@ -26,8 +26,8 @@ export default function Modal({ isOpen, onClose, children }: any) {
     >
       <div ref={ref} onClick={(e) => e.stopPropagation()} className="z-50 pt-5">
         <div className="h-160 w-140 bg-black/90 rounded-[50px]">
-          <div className="p-7 h-full overflow-hidden">
-            <div className="flex justify-between">
+        <div className="px-7 pt-7">
+          <div className="flex justify-around ">
               <div className="w-full">
                 <button
                   onClick={onClose}
@@ -51,6 +51,10 @@ export default function Modal({ isOpen, onClose, children }: any) {
               ></Image>
               <div className="w-full"></div>
             </div>
+        </div>
+          <div className="h-full flex items-center flex-col">
+            
+            
 
             {children}
           </div>
