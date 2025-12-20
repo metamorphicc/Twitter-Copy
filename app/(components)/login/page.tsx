@@ -74,19 +74,17 @@ export default function Login() {
                     <h1 className="font-bold text-[30px]">Create an Account</h1>
                   </div>
 
-                  <div className="flex flex-col items-center justify-center h-[50%] w-full">
-                    <form action="" className="w-full pb-7" id="my-form">
+                  <div className="flex flex-col items-center justify-center w-full">
+                    <form action="" className="w-full space-y-6" id="my-form">
                       <input
                         type="text"
                         required
                         maxLength={60}
                         id="text"
                         name="text"
-                        className="border border-zinc-700  p-3 w-full"
+                        className="border border-zinc-700  p-3 w-full "
                         placeholder="Name"
                       />
-                    </form>
-                    <form action="" className="w-full " id="my-form">
                       <input
                         type="email"
                         required
@@ -98,7 +96,7 @@ export default function Login() {
                       />
                     </form>
                   </div>
-                  <div className="w-full space-y-2 mb-6">
+                  <div className="w-full space-y-2 my-6">
                     <h1 className="font-bold text-lg">Date of birth</h1>
                     <p className="text-sm text-zinc-400">
                       This will not be displayed publicly. Verify your own age,
@@ -107,7 +105,7 @@ export default function Login() {
                     </p>
                   </div>
                 </div>
-
+                  
                 <div className="w-[70%]">
                   <button
                     type="submit"
