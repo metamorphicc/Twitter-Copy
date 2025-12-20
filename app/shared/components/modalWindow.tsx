@@ -1,7 +1,5 @@
 "use client";
 import { useEffect, useRef } from "react";
-import { useClickOutside } from "@react-hooks-hub/use-click-outside";
-import { Portal } from "./Portal";
 
 export default function Modal({ isOpen, onClose, children }: any) {
   const ref = useRef<HTMLDivElement | null>(null);
@@ -19,6 +17,15 @@ export default function Modal({ isOpen, onClose, children }: any) {
 
   if (!isOpen) return null;
 
-  return   <Portal id="modal-root"><div className="flex w-full h-screen bg-red-700"></div></Portal>
-  
+  return  (<div className="bg-neutral-900/60 fixed items-center justify-center inset-0 z-40  "
+  onClick={onClose}>
+    <div ref={ref}
+    onClick={(e) => e.stopPropagation()}
+    className="z-50"
+    >
+      {children}
+    </div>
+  </div>)
+
+
 }

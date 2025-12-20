@@ -68,7 +68,7 @@ export default function Login() {
                 <span>Create account</span>
               </button>
           {isOpen && <Portal id="modal-root">
-              <Modal isOpen={isOpen}>
+              <Modal isOpen={isOpen} onClose={()=> {setIsOpen(false)}}>
               </Modal>
             </Portal>}
         </div>
