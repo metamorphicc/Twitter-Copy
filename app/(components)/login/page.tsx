@@ -4,10 +4,26 @@ import GoogleButton from "./googleButton";
 import Modal from "@/app/shared/components/modalWindow";
 import { Portal } from "../../shared/components/Portal";
 import { useState } from "react";
+import { redirect } from "next/navigation";
+import { checkSes } from "../home/checkSession";
+import { useRouter } from "next/navigation";
 
 export default function Login() {
   const [isOpen, setIsOpen] = useState(false);
-
+  const router = useRouter();
+  async function handleForm(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+    const username = formData.get("username");
+    const email = formData.get("email");
+    const res = await fetch("http://localhost:8089/api/regProfile", {
+      method: "POST",
+      headers: {"Content-type": "application/json"},
+      body: JSON.stringify({username, email})
+    });
+    if(res.ok) redirect("/home")
+  }
   return (
     <div className="h-screen w-screen fixed flex">
       <div className="w-full flex justify-center items-center">
@@ -75,13 +91,18 @@ export default function Login() {
                   </div>
 
                   <div className="flex flex-col items-center justify-center w-full">
-                    <form action="" className="w-full space-y-6" id="my-form">
+                    <form
+                      action=""
+                      onSubmit={handleForm}
+                      className="w-full space-y-6"
+                      id="my-form"
+                    >
                       <input
                         type="text"
                         required
                         maxLength={60}
                         id="text"
-                        name="text"
+                        name="username"
                         className="border border-zinc-700  p-3 w-full "
                         placeholder="Name"
                       />
@@ -90,13 +111,13 @@ export default function Login() {
                         required
                         maxLength={60}
                         id="text"
-                        name="text"
+                        name="email"
                         className="border p-3 w-full border-zinc-700 "
                         placeholder="Email"
                       />
                     </form>
                   </div>
-                  <div className="w-full space-y-2 my-6">
+                  <div className="w-full space-y-2 my-6 flex flex-col">
                     <h1 className="font-bold text-lg">Date of birth</h1>
                     <p className="text-sm text-zinc-400 mb-6">
                       This will not be displayed publicly. Verify your own age,
@@ -104,29 +125,43 @@ export default function Login() {
                       someone else.
                     </p>
                     <div className="flex justify-around space-x-3">
-                      <div className="border border-zinc-700 w-full">
-                      <select name="" id="selector" className="p-2 w-full">
-                      <option value="value1" >june</option>
-                      <option value="value2">july</option>
-                      <option value="value3">august</option>
-                    </select>
+                      <div className="border border-zinc-700 w-full pr-2">
+                        <select
+                          name=""
+                          id="selector"
+                          className="p-2 w-full text-white bg-black outline-none"
+                        >
+                          <option value="" disabled></option>
+                          <option value="value1">June</option>
+                          <option value="value2">July</option>
+                          <option value="value3">August</option>
+                        </select>
+                      </div>
+                      <div className="border border-zinc-700 w-full  pr-2">
+                        <select
+                          name=""
+                          id="selector"
+                          className="p-2 w-full text-white bg-black outline-none"
+                        >
+                          <option value="" disabled></option>
+                          <option value="value1">1</option>
+                          <option value="value2">2</option>
+                          <option value="value3">3</option>
+                        </select>
+                      </div>
+                      <div className="border border-zinc-700 w-full  pr-2">
+                        <select
+                          name="Day"
+                          id="selector"
+                          className="p-2 w-full text-white bg-black outline-none"
+                        >
+                          <option value="" disabled></option>
+                          <option value="value1">2007</option>
+                          <option value="value2">2008</option>
+                          <option value="value3">2009</option>
+                        </select>
+                      </div>
                     </div>
-                    <div className="border border-zinc-700 w-full">
-                      <select name="" id="selector" className="p-2 w-full">
-                      <option value="value1" >june</option>
-                      <option value="value2">july</option>
-                      <option value="value3">august</option>
-                    </select>
-                    </div>
-                    <div className="border border-zinc-700 w-full">
-                      <select name="" id="selector" className="p-2 w-full">
-                      <option value="value1" >june</option>
-                      <option value="value2">july</option>
-                      <option value="value3">august</option>
-                    </select>
-                    </div>
-                    </div>
-                    
                   </div>
                 </div>
 
@@ -135,6 +170,7 @@ export default function Login() {
                     type="submit"
                     form="my-form"
                     className="border border-zinc-700 rounded-xl hover:bg-zinc-700 transition cursor-pointer w-full h-full mb-5"
+                    onClick={() => redirect("/home")}
                   >
                     <p className="font-black text-border-zinc-700">Next</p>
                   </button>

@@ -87,7 +87,7 @@ export default function Profile() {
               <div className="flex justify-between mb-5">
                 <div className="flex-col">
                   <p>{row[0]}</p>
-                  <p>{profiles[decode].tag}</p>
+                  <p>{row[0]}</p>
                 </div>
 
                 <button className="cursor-pointer shadow border rounded-[18px] p-3 text-sm h-10 flex items-center transition delay-150 duration-300 hover:rotate-45">
@@ -95,7 +95,7 @@ export default function Profile() {
                 </button>
               </div>
               <div className="min-h-5 mt-1.5 mb-3">
-                <p>{profiles[decode].description}</p>
+                <p>{row[0]}</p>
               </div>
               
             </div>

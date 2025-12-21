@@ -11,7 +11,7 @@ import Link from "next/link";
 import Image from "next/image";
 import AutoResizeTextarea from "@/app/AutoResizeTextArea";
 import { getServerSession } from "next-auth";
-import {handler} from "../../api/auth/[...nextauth]/route"
+import { handler } from "../../api/auth/[...nextauth]/route";
 import { checkSes } from "./checkSession";
 import { useSession } from "next-auth/react";
 
@@ -21,8 +21,8 @@ export default function Home() {
   const session = useSession();
   const ref = useRef<HTMLTextAreaElement>(null);
   const [text, setText] = useState("");
-  console.log(session);
   
+  // if (session.status == "unauthenticated") redirect("/login");
   const handleAction = (e: React.FormEvent) => {
     e.preventDefault();
     fetch("http://localhost:8089/api/posts", {
@@ -30,13 +30,11 @@ export default function Home() {
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({ text }),
     });
-    setText("")
+    setText("");
     if (ref.current) {
-      ref.current.style.height = "auto"
+      ref.current.style.height = "auto";
     }
   };
-  checkSes()
-  
 
   const handleInput = () => {
     const el = ref.current;
@@ -44,7 +42,6 @@ export default function Home() {
     el.style.height = "auto";
     el.style.height = el.scrollHeight + "px";
   };
-
   return (
     <div className="w-full flex justify-center">
       <LeftMenu />
