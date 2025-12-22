@@ -90,6 +90,7 @@ export const handler = NextAuth({
         if (account.provider == "credentials" && user) {
           token.userId = user.id;
           token.email = user.email;
+          token.picture = user.image
         }
       }
       return token;

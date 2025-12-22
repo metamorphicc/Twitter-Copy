@@ -21,7 +21,7 @@ export default function Home() {
   const session = useSession();
   const ref = useRef<HTMLTextAreaElement>(null);
   const [text, setText] = useState("");
-  
+
   // if (session.status == "unauthenticated") redirect("/login");
   const handleAction = (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,16 +35,20 @@ export default function Home() {
       ref.current.style.height = "auto";
     }
   };
-  console.log(session)  
   const handleInput = () => {
     const el = ref.current;
     if (!el) return;
     el.style.height = "auto";
     el.style.height = el.scrollHeight + "px";
   };
+  
   return (
+    <>
     <div className="w-full flex justify-center">
-      <LeftMenu />
+      <LeftMenu/>      
+        <div className=" flex flex-col justify-center items-center">
+        <div className="border border-zinc-700 min-w-70 w-145 h-full flex flex-col items-center">
+        <div className="w-full">
       <div className=" flex flex-col justify-center items-center">
         <div className="flex border border-zinc-700 w-full h-11">
           <div className="w-full h-full justify-center items-center flex transition duration-100 hover:bg-zinc-700">
@@ -137,18 +141,13 @@ export default function Home() {
             </form>
           </div>
         </div>
-
-        <div className="border border-zinc-700 bg-black min-w-70 w-145 flex justify-center flex-col gap-6">
-          {tweets.map((tweet) => (
-            <Posts
-              key={tweet.id}
-              message={tweet.text}
-              user={tweet.user}
-            ></Posts>
-          ))}
-        </div>
+</div>
       </div>
+        </div>
+          
+        </div>
       <RightMenu />
     </div>
+    </>
   );
 }

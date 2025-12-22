@@ -14,7 +14,7 @@ export function Explore() {
       <div className="w-full flex justify-center">
         <LeftMenu />
         <div className="flex flex-col justify-center items-center">
-          <div className="border border-zinc-700 min-w-70 w-145 h-full flex flex-col bg-black items-center">
+          <div className="min-w-70 w-145 border border-zinc-700 bg-black flex flex-col h-full">
             <div className="h-1/7 w-full bg-zinc-950 flex flex-col">
               <div className="flex justify-between p-3 items-center">
                 <div

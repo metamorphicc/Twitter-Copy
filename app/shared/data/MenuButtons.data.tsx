@@ -5,7 +5,7 @@ export const menuIcons = [
     id: 1,
     icon: "/house.svg",
     name: "home",
-    link: "/"
+    link: "/home"
   },
   {
     id: 2,
