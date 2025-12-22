@@ -7,10 +7,12 @@ import { useState } from "react";
 import { redirect } from "next/navigation";
 import { checkSes } from "../home/checkSession";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 export default function Login() {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
+  const session = useSession()
   async function handleForm(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
@@ -23,6 +25,7 @@ export default function Login() {
       body: JSON.stringify({username, email})
     });
     if(res.ok) redirect("/home")
+    console.log(session)
   }
   return (
     <div className="h-screen w-screen fixed flex">
