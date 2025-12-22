@@ -41,113 +41,147 @@ export default function Home() {
     el.style.height = "auto";
     el.style.height = el.scrollHeight + "px";
   };
-  
+
   return (
     <>
-    <div className="w-full flex justify-center">
-      <LeftMenu/>      
+      <div className="w-full flex justify-center">
+        <LeftMenu />
         <div className=" flex flex-col justify-center items-center">
-        <div className="border border-zinc-700 min-w-70 w-145 h-full flex flex-col items-center">
-        <div className="w-full">
-      <div className=" flex flex-col justify-center items-center">
-        <div className="flex border border-zinc-700 w-full h-11">
-          <div className="w-full h-full justify-center items-center flex transition duration-100 hover:bg-zinc-700">
-            <Link
-              href={"#"}
-              className="w-full h-full flex justify-center items-center"
-            >
-              {path === "/notification" ? (
-                <p className="text-white font-bold">For you</p>
-              ) : (
-                <p> For you </p>
-              )}
-            </Link>
-          </div>
+          <div className="border border-zinc-700 min-w-70 w-145 h-full flex flex-col items-center">
+            <div className="w-full">
+              <div className=" flex flex-col justify-center items-center">
+                <div className="flex border border-zinc-700 w-full h-11">
+                  <div className="w-full h-full justify-center items-center flex transition duration-100 hover:bg-zinc-700">
+                    <Link
+                      href={"#"}
+                      className="w-full h-full flex justify-center items-center"
+                    >
+                      {path === "/notification" ? (
+                        <p className="text-white font-bold">For you</p>
+                      ) : (
+                        <p> For you </p>
+                      )}
+                    </Link>
+                  </div>
 
-          <div className="w-full h-full justify-center items-center flex transition duration-100 hover:bg-zinc-700">
-            <Link
-              href={"#"}
-              className="w-full h-full flex justify-center items-center"
-            >
-              {path === "/notification/verified" ? (
-                <p className="text-white font-bold">Following</p>
-              ) : (
-                <p>Following</p>
-              )}
-            </Link>
-          </div>
-        </div>
-        <div className="w-full px-4 py-3 border-x border-zinc-700 flex gap-4 ">
-          <div className="flex-shrink-0">
-            <Image
-              src="/morph.jpg"
-              alt="profile"
-              width={45}
-              height={45}
-              className="rounded-full"
-            />
-          </div>
-
-          <div className="flex flex-col w-full">
-            <form onSubmit={handleAction}>
-              <textarea
-                ref={ref}
-                onInput={handleInput}
-                className="w-full overflow-hidden resize-none bg-black text-white p-2 pr-4 outline-none"
-                placeholder="What’s happening?"
-                value={text}
-                onChange={(e) => {
-                  setText(e.target.value);
-                }}
-              />
-
-              <div className="flex justify-between items-center mt-3">
-                <ul className="flex gap-4 text-sky-500">
-                  <li>
-                    <Image src="/picture.svg" alt="" width={21} height={21} />
-                  </li>
-                  <li>
-                    <Image src="/gif.svg" alt="" width={21} height={21} />
-                  </li>
-                  <li>
-                    <Image src="/poll.svg" alt="" width={21} height={21} />
-                  </li>
-                  <li>
-                    <Image src="/smile.svg" alt="" width={21} height={21} />
-                  </li>
-                  <li>
-                    <Image src="/calendar.svg" alt="" width={21} height={21} />
-                  </li>
-                  <li>
+                  <div className="w-full h-full justify-center items-center flex transition duration-100 hover:bg-zinc-700">
+                    <Link
+                      href={"#"}
+                      className="w-full h-full flex justify-center items-center"
+                    >
+                      {path === "/notification/verified" ? (
+                        <p className="text-white font-bold">Following</p>
+                      ) : (
+                        <p>Following</p>
+                      )}
+                    </Link>
+                  </div>
+                </div>
+                <div className="w-full px-4 py-3 border-x border-zinc-700 flex gap-4 ">
+                  <div className="flex-shrink-0">
                     <Image
-                      src="/mapslocation.svg"
-                      alt=""
-                      width={21}
-                      height={21}
+                      src="/morph.jpg"
+                      alt="profile"
+                      width={45}
+                      height={45}
+                      className="rounded-full"
                     />
-                  </li>
-                </ul>
+                  </div>
 
-                <button
-                  className="
+                  <div className="flex flex-col w-full">
+                    <form onSubmit={handleAction}>
+                      <textarea
+                        ref={ref}
+                        onInput={handleInput}
+                        className="w-full overflow-hidden resize-none bg-black text-white p-2 pr-4 outline-none"
+                        placeholder="What’s happening?"
+                        value={text}
+                        onChange={(e) => {
+                          setText(e.target.value);
+                        }}
+                      />
+
+                      <div className="flex justify-between items-center mt-3">
+                        <ul className="flex gap-4 text-sky-500">
+                          <li>
+                            <Image
+                              src="/picture.svg"
+                              alt=""
+                              width={21}
+                              height={21}
+                            />
+                          </li>
+                          <li>
+                            <Image
+                              src="/gif.svg"
+                              alt=""
+                              width={21}
+                              height={21}
+                            />
+                          </li>
+                          <li>
+                            <Image
+                              src="/poll.svg"
+                              alt=""
+                              width={21}
+                              height={21}
+                            />
+                          </li>
+                          <li>
+                            <Image
+                              src="/smile.svg"
+                              alt=""
+                              width={21}
+                              height={21}
+                            />
+                          </li>
+                          <li>
+                            <Image
+                              src="/calendar.svg"
+                              alt=""
+                              width={21}
+                              height={21}
+                            />
+                          </li>
+                          <li>
+                            <Image
+                              src="/mapslocation.svg"
+                              alt=""
+                              width={21}
+                              height={21}
+                            />
+                          </li>
+                        </ul>
+
+                        <button
+                          className="
           bg-sky-500 text-white font-semibold
           rounded-full px-4 py-1.5 text-[15px]
           hover:bg-sky-600 transition
         "
-                >
-                  Post
-                </button>
+                        >
+                          Post
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
               </div>
-            </form>
+            </div>
+            {/* POSTS */}
+            <div>
+            {tweets.map((tweet) => (
+            <Posts
+              key={tweet.id}
+              message={tweet.text}
+              user={tweet.user}
+            ></Posts>
+          ))}
+            </div>
           </div>
         </div>
-</div>
+        <RightMenu />
       </div>
-        </div>
-          
-        </div>
-      <RightMenu />
-    </div>
     </>
   );
 }

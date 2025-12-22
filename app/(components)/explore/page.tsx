@@ -11,7 +11,7 @@ export function Explore() {
   const path = usePathname();
   return (
     <>
-      <div className="w-full flex justify-center">
+      <div className="w-full flex justify-center overflow-visible">
         <LeftMenu />
         <div className="flex flex-col justify-center items-center">
           <div className="min-w-70 w-145 border border-zinc-700 bg-black flex flex-col h-full">
