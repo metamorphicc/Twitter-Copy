@@ -35,7 +35,7 @@ export default function Home() {
       ref.current.style.height = "auto";
     }
   };
-
+  console.log(session)  
   const handleInput = () => {
     const el = ref.current;
     if (!el) return;

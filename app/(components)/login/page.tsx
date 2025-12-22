@@ -7,26 +7,29 @@ import { useState } from "react";
 import { redirect } from "next/navigation";
 import { checkSes } from "../home/checkSession";
 import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
+import { useSession, signIn } from "next-auth/react";
 
 export default function Login() {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
-  const session = useSession()
+  const session = useSession();
   async function handleForm(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
     const formData = new FormData(form);
     const username = formData.get("username");
     const email = formData.get("email");
-    const res = await fetch("http://localhost:8089/api/regProfile", {
-      method: "POST",
-      headers: {"Content-type": "application/json"},
-      body: JSON.stringify({username, email})
-    });
-    if(res.ok) redirect("/home")
-    console.log(session)
+    const res = await signIn("credentials", {
+      redirect: false,
+      username,
+      email
+    })
+
+    if (res?.ok) redirect("/home");
+    console.log(session);
   }
+
+
   return (
     <div className="h-screen w-screen fixed flex">
       <div className="w-full flex justify-center items-center">
