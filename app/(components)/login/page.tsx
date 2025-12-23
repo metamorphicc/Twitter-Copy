@@ -20,9 +20,8 @@ export default function Login() {
     e.preventDefault();
     const form = e.currentTarget;
     const formData = new FormData(form);
-    const username = formData.get("username");
-    const email = formData.get("email");
-
+    const username = formData?.get("username");
+    const email = formData?.get("email");
     if (!username || !email) return;
 
     const res = await signIn("credentials", {
@@ -30,8 +29,7 @@ export default function Login() {
       username,
       email,
     });
-    
-    setIsNext(!isNext);
+
     console.log(session);
   }
 
@@ -186,6 +184,7 @@ export default function Login() {
                         form="my-form"
                         onClick={() => {
                           setTagNext("");
+                          setIsNext(!isNext);
                         }}
                         className="border border-zinc-700 rounded-xl hover:bg-zinc-700 transition cursor-pointer w-full h-full mb-5"
                       >
@@ -195,54 +194,56 @@ export default function Login() {
                   </>
                 ) : (
                   <>
-                     <div className="h-[80%] flex items-center flex-col rounded-[50px] justify-between ">
-                    <div className=" w-[70%] flex flex-col">
-                      <div className="h-20 flex items-start flex-col ">
-                        <h1 className="font-bold text-[30px]">
-                          What should we call you?
-                        </h1>
-                        <span className="text-zinc-500">
-                          Your username is unique. You can change it at any
-                          time.
-                        </span>
-                      </div>
+                    <div className="h-[80%] flex items-center flex-col rounded-[50px] justify-between ">
+                      <div className=" w-[70%] flex flex-col">
+                        <div className="h-20 flex items-start flex-col ">
+                          <h1 className="font-bold text-[30px]">
+                            What should we call you?
+                          </h1>
+                          <span className="text-zinc-500">
+                            Your username is unique. You can change it at any
+                            time.
+                          </span>
+                        </div>
 
-                      <div className="flex flex-col items-center justify-center w-full pt-5">
-                        <form
-                          action=""
-                          onSubmit={handleForm}
-                          className="w-full space-y-6"
-                          id="my-form-next"
-                        >
-                          <input
-                            type="text"
-                            maxLength={60}
-                            id="text-next"
-                            name="tag-next"
-                            className="border p-3 w-full border-zinc-700 "
-                            placeholder="Your tag is?"
-                            value={tagNext}
-                            onChange={(e) => {setTagNext(e.target.value); console.log(session.data?.user?.name)}}
-                          />
-                        </form>
-                      </div>
-                      <i className="pt-3">Suggestion: </i>
+                        <div className="flex flex-col items-center justify-center w-full pt-5">
+                          <form
+                            action=""
+                            onSubmit={handleForm}
+                            className="w-full space-y-6"
+                            id="my-form-next"
+                          >
+                            <input
+                              type="text"
+                              maxLength={60}
+                              id="tag-next"
+                              name="tag-next"
+                              className="border p-3 w-full border-zinc-700 "
+                              placeholder="Your tag is?"
+                              value={tagNext}
+                              onChange={(e) => {
+                                setTagNext(e.target.value);
+                              }}
+                            />
+                          </form>
+                        </div>
+                        <i className="pt-3">Suggestion: </i>
                       </div>
                       <div className="w-[70%] mt-10">
-                      <button
-                        type="submit"
-                        form="my-form"
-                        onClick={() => {
-                          router.push("/home");
-                        }}
-                        className="border border-zinc-700 rounded-xl hover:bg-zinc-700 transition cursor-pointer w-full h-full mb-5"
-                      >
-                        <p className="font-black text-border-zinc-700">Skip for now</p>
-                      </button>
+                        <button
+                          type="submit"
+                          form="my-form"
+                          onClick={() => {
+                            router.push("/home");
+                          }}
+                          className="border border-zinc-700 rounded-xl hover:bg-zinc-700 transition cursor-pointer w-full h-full mb-5"
+                        >
+                          <p className="font-black text-border-zinc-700">
+                            Skip for now
+                          </p>
+                        </button>
+                      </div>
                     </div>
-                    </div>
-
-                    
                   </>
                 )}
               </Modal>
