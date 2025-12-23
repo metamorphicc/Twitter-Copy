@@ -125,12 +125,12 @@ export function LeftMenu(): any {
               >
                 <div className="px-3 py-1.5 flex items-center">
                   <div className="flex items-center">
-                  <Image src={session.data?.user?.image as string ?? "/#"} alt="=" width={40} height={40} className="rounded-[40px]">
+                  <Image src={session.data?.user?.image as string ?? "/morph.jpg"} alt="=" width={40} height={40} className="rounded-[40px]">
                     
                   </Image>
                 </div>
                 <div className="flex-1 items-start mx-2 flex  flex-col">
-                    <p className="text-white text-[15px]">{session.data?.user?.name}</p>
+                    <p className="text-white text-[15px]">{session.data?.user?.name ?? "You haven't authorized"}</p>
                     <span className="text-zinc-500 text-[15px]">@morph_lowbanker</span>
                 </div>
                 <div className=" flex justify-end">

@@ -52,12 +52,12 @@ export default function Modal({ isOpen, onClose, children }: any) {
               <div className="w-full"></div>
             </div>
         </div>
-          <div className="h-full flex items-center flex-col">
+       
             
             
 
             {children}
-          </div>
+
         </div>
       </div>
     </div>

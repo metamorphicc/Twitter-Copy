@@ -21,7 +21,7 @@ export default function Home() {
   const session = useSession();
   const ref = useRef<HTMLTextAreaElement>(null);
   const [text, setText] = useState("");
-
+  console.log(session.data)
   // if (session.status == "unauthenticated") redirect("/login");
   const handleAction = (e: React.FormEvent) => {
     e.preventDefault();
@@ -80,7 +80,7 @@ export default function Home() {
                 <div className="w-full px-4 py-3 border-x border-zinc-700 flex gap-4 ">
                   <div className="flex-shrink-0">
                     <Image
-                      src={session.data?.user?.image ?? "/#"}
+                      src={session.data?.user?.image ?? "/morph.jpg"}
                       alt="profile"
                       width={45}
                       height={45}
