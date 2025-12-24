@@ -18,7 +18,6 @@ import { useSession } from "next-auth/react";
 
 function ProfileDate(props: any) {
   const [date, setDate] = useState("");
-  
 
   return <span>{date}</span>;
 }
@@ -27,54 +26,52 @@ export default function Profile() {
   const [coverPreview, setCoverPreview] = useState<string | null>(null);
   const [tag, setTag] = useState("");
   const [createdAt, setcreatedAt] = useState("");
-  const session = useSession()
-  const date = new Date(createdAt).toLocaleDateString()
+  const session = useSession();
+  const date = new Date(createdAt).toLocaleDateString();
   const ids = session.data?.user?.id;
+  const [row, setRow]: any = useState();
+  const router = useRouter();
+  const urls: string = usePathname();
+  let result = urls.split("/").pop() as keyof typeof profiles;
+  const decode = decodeURIComponent(result) as keyof typeof profiles;
   useEffect(() => {
-    if (!ids) return
+    if (!ids) return;
+    document.title = "Profile";
+    async function getAllPosts() {
+      try {
+        const rows = await fetch("http://localhost:8089/api/getPosts", {
+          method: "POST",
+          headers: { "Content-type": "application/json" },
+          body: JSON.stringify({ ids: ids }),
+        });
+        const data = await rows.json();
+        setRow(data.rows);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    getAllPosts();
     async function getInfo() {
       const res = await fetch("http://localhost:8089/api/profiles", {
         method: "POST",
         headers: { "Content-type": "application/json" },
-        body: JSON.stringify({id: ids})
-      })
+        body: JSON.stringify({ id: ids }),
+      });
       const response = await res.json();
-      setTag(response.result.tag)
-      setcreatedAt(response.result.createdAt)
+      setTag(response.result.tag);
+      setcreatedAt(response.result.createdAt);
     }
-    getInfo()
-  }, [ids])
-
+    getInfo();
+  }, [ids]);
+  console.log(row[0])
+  // const posts = row.rows as any
   function handleCoverChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;
     setCoverPreview(URL.createObjectURL(file));
   }
-  const [row, setRow] = useState();
-  useEffect(() => {
-    document.title = "Profile";
-    async function getAllPosts() {
-      try {
-        const rows = await fetch("http://localhost:8089/api/getPosts",
-        {
-          method: "POST",
-          headers: { "Content-type": "application/json" },
-          body: JSON.stringify({ids})
-        }
-        );
-        const data = await rows.json();
-        console.log(data)
-        setRow(data);
-      } catch (e) {
-        console.log(e);
-      }
-    }
-    getAllPosts()
-  }, []);
-  const router = useRouter();
-  const urls: string = usePathname();
-  let result = urls.split("/").pop() as keyof typeof profiles;
-  const decode = decodeURIComponent(result) as keyof typeof profiles;
+
+
   return (
     <div className="flex h-screen justify-center">
       <LeftMenu />
@@ -107,7 +104,7 @@ export default function Profile() {
                 <h1 className="font-bold text-[19px] pt-1">
                   {session.data?.user?.name}
                 </h1>
-                <span className="text-zinc-700 text-[12px]">14.3k posts</span>
+                <span className="text-zinc-700 text-[14px]"> {row.length} posts</span>
               </div>
               <div className="w-20 h-12 flex items-center justify-around gap-3">
                 <Link
@@ -193,9 +190,7 @@ export default function Profile() {
                   <h1 className="font-bold text-[20px]">
                     {session.data?.user?.name}
                   </h1>
-                  <span className="text-zinc-700 text-[15px]">
-                      @{tag}
-                  </span>
+                  <span className="text-zinc-700 text-[15px]">@{tag}</span>
                 </div>
               </div>
             </div>
@@ -276,8 +271,13 @@ export default function Profile() {
             </div>
           </div>
         </div>
-        <div className="h-auto">
-          
+        <div className="min-h-30 bg-black h-50 border border-zinc-700">
+          <div className="flex p-6">
+            <p>
+                    {row[0].content}
+                  </p>
+          </div>
+                  
         </div>
       </div>
       <RightMenu />
