@@ -18,42 +18,63 @@ import { useSession } from "next-auth/react";
 
 function ProfileDate(props: any) {
   const [date, setDate] = useState("");
-
-  useEffect(() => {
-    setDate(new Date(props).toLocaleDateString());
-  }, []);
+  
 
   return <span>{date}</span>;
 }
 
 export default function Profile() {
   const [coverPreview, setCoverPreview] = useState<string | null>(null);
+  const [tag, setTag] = useState("");
+  const [createdAt, setcreatedAt] = useState("");
+  const session = useSession()
+  const date = new Date(createdAt).toLocaleDateString()
+  const ids = session.data?.user?.id;
+  useEffect(() => {
+    if (!ids) return
+    async function getInfo() {
+      const res = await fetch("http://localhost:8089/api/profiles", {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify({id: ids})
+      })
+      const response = await res.json();
+      setTag(response.result.tag)
+      setcreatedAt(response.result.createdAt)
+    }
+    getInfo()
+  }, [ids])
 
   function handleCoverChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;
     setCoverPreview(URL.createObjectURL(file));
   }
-  const session = useSession();
-  const [row, setRow] = useState<any[]>([]);
+  const [row, setRow] = useState();
   useEffect(() => {
     document.title = "Profile";
     async function getAllPosts() {
       try {
-        const rows = await fetch("http://localhost:8089/api/posts");
+        const rows = await fetch("http://localhost:8089/api/getPosts",
+        {
+          method: "POST",
+          headers: { "Content-type": "application/json" },
+          body: JSON.stringify({ids})
+        }
+        );
         const data = await rows.json();
+        console.log(data)
         setRow(data);
-        return rows;
       } catch (e) {
         console.log(e);
       }
     }
+    getAllPosts()
   }, []);
   const router = useRouter();
   const urls: string = usePathname();
   let result = urls.split("/").pop() as keyof typeof profiles;
   const decode = decodeURIComponent(result) as keyof typeof profiles;
-  console.log(session);
   return (
     <div className="flex h-screen justify-center">
       <LeftMenu />
@@ -173,7 +194,7 @@ export default function Profile() {
                     {session.data?.user?.name}
                   </h1>
                   <span className="text-zinc-700 text-[15px]">
-                    @morph_lowbanker
+                      @{tag}
                   </span>
                 </div>
               </div>
@@ -187,7 +208,7 @@ export default function Profile() {
                   width={22}
                   height={22}
                 ></Image>
-                Joined: {ProfileDate(profilesInfo[2].created_at)}
+                Joined: {date}
               </p>
               <div className="flex gap-5 ml-6 text-[15px]">
                 <div>
@@ -254,6 +275,9 @@ export default function Profile() {
               </div>
             </div>
           </div>
+        </div>
+        <div className="h-auto">
+          
         </div>
       </div>
       <RightMenu />

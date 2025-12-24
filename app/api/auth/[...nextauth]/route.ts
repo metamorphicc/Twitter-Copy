@@ -105,7 +105,7 @@ export const handler = NextAuth({
     },
     async session({ session, token }) {
       if (session.user) {
-        (session.user as any).id = (token as any).userId;
+        (session.user as any).id = (token as any).userId as string;
         session.user.email = token.email as string | undefined;
       }
       return session;

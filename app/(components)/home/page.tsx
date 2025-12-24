@@ -21,14 +21,14 @@ export default function Home() {
   const session = useSession();
   const ref = useRef<HTMLTextAreaElement>(null);
   const [text, setText] = useState("");
-  console.log(session.data)
+  const id = session.data?.user?.id
   // if (session.status == "unauthenticated") redirect("/login");
   const handleAction = (e: React.FormEvent) => {
     e.preventDefault();
     fetch("http://localhost:8089/api/posts", {
       method: "POST",
       headers: { "Content-type": "application/json" },
-      body: JSON.stringify({ text }),
+      body: JSON.stringify({ text, id }),
     });
     setText("");
     if (ref.current) {

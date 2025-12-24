@@ -2,10 +2,11 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { menuIcons } from "../../shared/data/MenuButtons.data";
 import DropoutMenu from "../toggleMenu";
 import { useSession } from "next-auth/react";
+import { response } from "express";
 
 function toCapitalize(arg: string): string {
   return arg.split("")[0].toUpperCase() + arg.split("").slice(1).join("");
@@ -15,10 +16,25 @@ export function LeftMenu(): any {
   const router = useRouter();
   const path = usePathname();
   const [more, setMore] = useState(false);
+  const [tag, setTag] = useState("");
   const toggleMenu = () => {
     setMore((prev) => !prev);
   };
   const session = useSession()
+  const ids = session.data?.user?.id;
+  useEffect(() => {
+    if (!ids) return
+    async function getInfo() {
+      const res = await fetch("http://localhost:8089/api/profiles", {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify({id: ids})
+      })
+      const response = await res.json();
+      setTag(response.result.tag)
+    }
+    getInfo()
+  }, [ids])
   return (
     <div className="h-screen sticky top-0 flex flex-col">
       <div className="sticky w-60 h-full flex flex-col justify-between">
@@ -130,8 +146,8 @@ export function LeftMenu(): any {
                   </Image>
                 </div>
                 <div className="flex-1 items-start mx-2 flex  flex-col">
-                    <p className="text-white text-[15px]">{session.data?.user?.name ?? "null"}</p> {/*СМЕНИТЬ NULL НА ""*/}
-                    <span className="text-zinc-500 text-[15px]">@morph_lowbanker</span>
+                    <p className="text-white text-[15px]">{session.data?.user?.name ?? ""}</p> {/*СМЕНИТЬ NULL НА ""*/}
+                    <span className="text-zinc-500 text-[15px]">@{tag}</span>
                 </div>
                 <div className=" flex justify-end">
                 <Image src="/threepoints.svg" alt="=" width={13} height={13} className="rounded-[40px]">
