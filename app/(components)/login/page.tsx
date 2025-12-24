@@ -3,7 +3,7 @@ import Image from "next/image";
 import GoogleButton from "./googleButton";
 import Modal from "@/app/shared/components/modalWindow";
 import { Portal } from "../../shared/components/Portal";
-import { useState } from "react";
+import React, { useState } from "react";
 import { redirect } from "next/navigation";
 import { checkSes } from "../home/checkSession";
 import { useRouter } from "next/navigation";
@@ -12,24 +12,48 @@ import generateTag from "@/app/shared/randomTag";
 
 export default function Login() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isNext, setIsNext] = useState(false);
+  const [isNext, setIsNext] = useState(true);
   const [tagNext, setTagNext] = useState("");
+  const [usernameForm, setUsernameForm] = useState("");
+  const [emailForm, setEmailForm] = useState("");
   const router = useRouter();
   const session = useSession();
+
+  const handleNextStep = () => {
+    const form = document.getElementById("signup-form") as HTMLFormElement | null;
+    if (!form) return;
+
+    const formData = new FormData(form);
+    const username = formData.get("username")?.toString().trim();
+    const email = formData.get("email")?.toString().trim();
+    setEmailForm(email as string);
+    setUsernameForm(username as string);
+    if (!username || !email) {
+      return;
+    }
+
+    setIsNext(true);
+  };
+
   async function handleForm(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    console.log("SUBMIT")
     const form = e.currentTarget;
     const formData = new FormData(form);
-    const username = formData?.get("username");
-    const email = formData?.get("email");
-    if (!username || !email) return;
-
+    const tag = formData.get("tag-next");
+    const month = formData.get("month");
+    const day = formData.get("day");
+    const year = formData.get("year");
+    console.log("after submit")
+    console.log(emailForm, usernameForm)
     const res = await signIn("credentials", {
       redirect: false,
-      username,
-      email,
+      usernameForm,
+      emailForm,
+      tag,
     });
-
+    console.log(res)
+    if (res?.ok) redirect("/home") 
     console.log(session);
   }
 
@@ -94,108 +118,104 @@ export default function Login() {
                   setIsOpen(false);
                 }}
               >
-                {!isNext ? (
-                  <>
-                    <div className=" w-[70%] justify-center  flex-col">
-                      <div className="h-20 flex items-center">
-                        <h1 className="font-bold text-[30px]">
-                          Create an Account
-                        </h1>
-                      </div>
+                <form
+                  id="signup-form"
+                  onSubmit={handleForm}
+                  className="h-[80%] flex items-center flex-col rounded-[50px] justify-between"
+                >
+                  {!isNext ? (
+                    <>
+                      <div className="w-[70%] justify-center flex-col">
+                        <div className="h-20 flex items-center">
+                          <h1 className="font-bold text-[30px]">
+                            Create an Account
+                          </h1>
+                        </div>
 
-                      <div className="flex flex-col items-center justify-center w-full">
-                        <form
-                          action=""
-                          onSubmit={handleForm}
-                          className="w-full space-y-6"
-                          id="my-form"
-                        >
-                          <input
-                            type="text"
-                            required
-                            maxLength={60}
-                            id="text"
-                            name="username"
-                            className="border border-zinc-700  p-3 w-full "
-                            placeholder="Name"
-                          />
-                          <input
-                            type="email"
-                            required
-                            maxLength={60}
-                            id="text"
-                            name="email"
-                            className="border p-3 w-full border-zinc-700 "
-                            placeholder="Email"
-                          />
-                        </form>
-                      </div>
-                      <div className="w-full space-y-2 my-6 flex flex-col">
-                        <h1 className="font-bold text-lg">Date of birth</h1>
-                        <p className="text-sm text-zinc-400 mb-6">
-                          This will not be displayed publicly. Verify your own
-                          age, even if this account is intended for a business,
-                          a pet, or someone else.
-                        </p>
-                        <div className="flex justify-around space-x-3">
-                          <div className="border border-zinc-700 w-full pr-2">
-                            <select
-                              name=""
-                              id="selector"
-                              className="p-2 w-full text-white bg-black outline-none"
-                            >
-                              <option value="" disabled></option>
-                              <option value="value1">June</option>
-                              <option value="value2">July</option>
-                              <option value="value3">August</option>
-                            </select>
+                        <div className="flex flex-col items-center justify-center w-full">
+                          <div className="w-full space-y-6">
+                            <input
+                              type="text"
+                              required
+                              maxLength={60}
+                              name="username"
+                              className="border border-zinc-700 p-3 w-full"
+                              placeholder="Name"
+                            />
+                            <input
+                              type="email"
+                              required
+                              maxLength={60}
+                              name="email"
+                              className="border p-3 w-full border-zinc-700"
+                              placeholder="Email"
+                            />
                           </div>
-                          <div className="border border-zinc-700 w-full  pr-2">
-                            <select
-                              name=""
-                              id="selector"
-                              className="p-2 w-full text-white bg-black outline-none"
-                            >
-                              <option value="" disabled></option>
-                              <option value="value1">1</option>
-                              <option value="value2">2</option>
-                              <option value="value3">3</option>
-                            </select>
-                          </div>
-                          <div className="border border-zinc-700 w-full  pr-2">
-                            <select
-                              name="Day"
-                              id="selector"
-                              className="p-2 w-full text-white bg-black outline-none"
-                            >
-                              <option value="" disabled></option>
-                              <option value="value1">2007</option>
-                              <option value="value2">2008</option>
-                              <option value="value3">2009</option>
-                            </select>
+                        </div>
+
+                        <div className="w-full space-y-2 my-6 flex flex-col">
+                          <h1 className="font-bold text-lg">Date of birth</h1>
+                          <p className="text-sm text-zinc-400 mb-6">
+                            This will not be displayed publicly. Verify your own
+                            age, even if this account is intended for a
+                            business, a pet, or someone else.
+                          </p>
+                          <div className="flex justify-around space-x-3">
+                            <div className="border border-zinc-700 w-full pr-2">
+                              <select
+                                name="month"
+                                id="selector"
+                                className="p-2 w-full text-white bg-black outline-none"
+                              >
+                                <option value="" disabled></option>
+                                <option value="value1">June</option>
+                                <option value="value2">July</option>
+                                <option value="value3">August</option>
+                              </select>
+                            </div>
+                            <div className="border border-zinc-700 w-full  pr-2">
+                              <select
+                                name="day"
+                                id="selector"
+                                className="p-2 w-full text-white bg-black outline-none"
+                              >
+                                <option value="" disabled></option>
+                                <option value="value1">1</option>
+                                <option value="value2">2</option>
+                                <option value="value3">3</option>
+                              </select>
+                            </div>
+                            <div className="border border-zinc-700 w-full  pr-2">
+                              <select
+                                name="year"
+                                id="selector"
+                                className="p-2 w-full text-white bg-black outline-none"
+                              >
+                                <option value="" disabled></option>
+                                <option value="value1">2007</option>
+                                <option value="value2">2008</option>
+                                <option value="value3">2009</option>
+                              </select>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
 
-                    <div className="w-[70%] mt-10">
-                      <button
-                        type="submit"
-                        form="my-form"
-                        onClick={() => {
-                          setTagNext("");
-                          setIsNext(!isNext);
-                        }}
-                        className="border border-zinc-700 rounded-xl hover:bg-zinc-700 transition cursor-pointer w-full h-full mb-5"
-                      >
-                        <p className="font-black text-border-zinc-700">Next</p>
-                      </button>
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <div className="h-[80%] flex items-center flex-col rounded-[50px] justify-between ">
-                      <div className=" w-[70%] flex flex-col">
+                      <div className="w-[70%] mt-10">
+                        <button
+                          type="button"
+                          onClick={() => handleNextStep()}
+                          className="border border-zinc-700 rounded-xl hover:bg-zinc-700 transition cursor-pointer w-full h-full mb-5"
+                        >
+                          <p className="font-black text-border-zinc-700">
+                            Next
+                          </p>
+                        </button>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="w-[70%] flex flex-col">
                         <div className="h-20 flex items-start flex-col ">
                           <h1 className="font-bold text-[30px]">
                             What should we call you?
@@ -207,35 +227,34 @@ export default function Login() {
                         </div>
 
                         <div className="flex flex-col items-center justify-center w-full pt-5">
-                          <form
-                            action=""
-                            onSubmit={handleForm}
-                            className="w-full space-y-6"
-                            id="my-form-next"
-                          >
+                          <div className="w-full space-y-6">
                             <input
                               type="text"
                               maxLength={60}
                               id="tag-next"
                               name="tag-next"
-                              className="border p-3 w-full border-zinc-700 "
+                              className="border p-3 w-full border-zinc-700"
                               placeholder="Your tag is?"
                               value={tagNext}
-                              onChange={(e) => {
-                                setTagNext(e.target.value);
-                              }}
+                              onChange={(e) => setTagNext(e.target.value)}
                             />
-                          </form>
+                          </div>
                         </div>
+
                         <i className="pt-3">Suggestion: </i>
                       </div>
-                      <div className="w-[70%] mt-10">
+
+                      <div className="w-[70%] mt-10 flex gap-2">
                         <button
-                          type="submit"
-                          form="my-form"
-                          onClick={() => {
-                            router.push("/home");
-                          }}
+                          type="button"
+                          onClick={() => setIsNext(!isNext)}
+                          className="border border-zinc-700 rounded-xl px-4 py-2"
+                        >
+                          Back
+                        </button>
+
+                        <button
+                          type="submit" // финальный сабмит
                           className="border border-zinc-700 rounded-xl hover:bg-zinc-700 transition cursor-pointer w-full h-full mb-5"
                         >
                           <p className="font-black text-border-zinc-700">
@@ -243,9 +262,9 @@ export default function Login() {
                           </p>
                         </button>
                       </div>
-                    </div>
-                  </>
-                )}
+                    </>
+                  )}
+                </form>
               </Modal>
             </Portal>
           )}

@@ -25,19 +25,22 @@ export const handler = NextAuth({
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        username: { label: "username", type: "username", requiered: true },
-        email: { label: "email", type: "email", requiered: true },
+        usernameForm: { label: "usernameForm", type: "usernameForm", requiered: true },
+        emailForm: { label: "emailForm", type: "emailForm", requiered: true },
+        tag: {label: "tag", type: "tag", requiered: true},
       },
+
       async authorize(credentials) {
-        if (!credentials?.email || !credentials?.username) return null;
+        if (!credentials?.emailForm || !credentials?.tag) return null;
       
-        const email = credentials.email;
-        const username = credentials.username;
+        const emailForm = credentials.emailForm;
+        const usernameForm = credentials.usernameForm;
+        const tag = credentials.tag;
       
         const res = await fetch("http://localhost:8089/api/regProfile", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ username, email }),
+          body: JSON.stringify({ usernameForm, emailForm, tag}),
         });
       
         if (!res.ok) return null;
@@ -49,7 +52,11 @@ export const handler = NextAuth({
         return {
           id: data.id,
           email: data.email,
-          name: data.username ?? username,
+          name: data.username ?? usernameForm,
+          tag: data.tag,
+          month: data.month,
+          year: data.year,
+          day: data.day
         };
       }
     }),
@@ -90,7 +97,8 @@ export const handler = NextAuth({
         if (account.provider == "credentials" && user) {
           token.userId = user.id;
           token.email = user.email;
-          token.picture = user.image
+          token.picture = user.image;
+          
         }
       }
       return token;

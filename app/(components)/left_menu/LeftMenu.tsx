@@ -125,7 +125,7 @@ export function LeftMenu(): any {
               >
                 <div className="px-3 py-1.5 flex items-center">
                   <div className="flex items-center">
-                  <Image src={session.data?.user?.image as string ?? "/#"} alt="=" width={40} height={40} className="rounded-[40px]">
+                  <Image src={session.data?.user?.image as string ?? "/black.svg"} alt="" width={40} height={40} className="rounded-[40px]">
                     
                   </Image>
                 </div>
