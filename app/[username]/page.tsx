@@ -23,13 +23,14 @@ function ProfileDate(props: any) {
 }
 
 export default function Profile() {
+
   const [coverPreview, setCoverPreview] = useState<string | null>(null);
   const [tag, setTag] = useState("");
   const [createdAt, setcreatedAt] = useState("");
   const session = useSession();
   const date = new Date(createdAt).toLocaleDateString();
   const ids = session.data?.user?.id;
-  const [row, setRow]: any = useState();
+  const [row, setRow]: any = useState([]);
   const router = useRouter();
   const urls: string = usePathname();
   let result = urls.split("/").pop() as keyof typeof profiles;
@@ -63,7 +64,7 @@ export default function Profile() {
     }
     getInfo();
   }, [ids]);
-  console.log(row[0])
+  console.log(row)
   // const posts = row.rows as any
   function handleCoverChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -271,11 +272,42 @@ export default function Profile() {
             </div>
           </div>
         </div>
-        <div className="min-h-30 bg-black h-50 border border-zinc-700">
-          <div className="flex p-6">
-            <p>
-                    {row[0].content}
-                  </p>
+        <div className="min-h-30 bg-black max-h-100 border border-zinc-700 w-full">
+          <div className="flex px-5 py-4 w-full ">
+            <div>
+                <Image src={session.data?.user?.image as string ?? "/$"} alt="User" height={45} width={45} className="rounded-full border-black">
+
+                </Image>
+            </div>
+            <div className="pl-3 w-full">
+                  <div className="flex gap-2 items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <p className="font-bold text-[16px]">{session.data?.user?.name} <span className="text-zinc-700">@{tag}</span>
+                     
+                      </p> <i className="text-[10px] text-zinc-700">•</i> <span className="text-[14px] text-zinc-400" >
+                      {date} 
+                     </span> 
+                    </div>
+                    
+                     <div className="flex gap-3">
+                      <Image src={"/grok.svg"} alt="user" width={20} height={20}>
+
+                      </Image>
+                      <Image src={"/threepoints.svg"} alt="user" width={20} height={20}>
+
+                      </Image>
+
+                     </div>
+                  </div>
+                  <div>
+                    {row.map((r: any) => {
+                      <p key={r.id}>
+                        {r?.content}
+
+                      </p>
+                    })}
+                  </div>
+            </div>
           </div>
                   
         </div>
