@@ -51,7 +51,7 @@ export default function Profile() {
           body: JSON.stringify({ ids: ids }),
         });
         const data = await rows.json();
-
+        console.log(data?.rows)
         setRow(data.rows ?? []);
       } catch (e) {
         console.log(e);
@@ -70,17 +70,20 @@ export default function Profile() {
         const response = await res.json();
         setTag(response.result.tag);
         setcreatedAt(response.result.createdAt);
-        console.log(response.result.followers)
+        console.log(response.result.followers);
 
-        const statt: any = [response.result.followers, response.result.following]
-        setStat(statt)
+        const statt: any = [
+          response.result.followers,
+          response.result.following,
+        ];
+        setStat(statt);
       } catch (e) {
         console.log(e);
       } finally {
         setLoading(false);
       }
     }
-    getInfo()
+    getInfo();
   }, [ids]);
   // const posts = row.rows as any
   function handleCoverChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -88,14 +91,18 @@ export default function Profile() {
     if (!file) return;
     setCoverPreview(URL.createObjectURL(file));
   }
+  const reversedRow = row?.reverse()
   return (
     <div className="flex h-screen justify-center">
       <LeftMenu />
-      {loading ? (
-        <div>Loading</div>
-      ) : (
+      
         <div className="w-145 h-full flex-col gap-2">
+        
           <div className="w-full border border-zinc-700 flex-col">
+            {loading ? (
+            <div></div>
+          ) : (
+          <>
             {/* ДИВ ДЛЯ ШАПКИ */}
             <header className="bg-black h-12 flex items-center">
               <div className="flex items-center justify-center w-full px-3">
@@ -195,7 +202,7 @@ export default function Profile() {
                   <div className="flex justify-between relative">
                     <div className="w-30 h-17 relative top-[-80px]   rounded-full">
                       <Image
-                        src={"/morph.svg"}
+                        src={(session.data?.user?.image as string) ?? "black.svg"}
                         alt="asd"
                         width={130}
                         height={130}
@@ -227,11 +234,13 @@ export default function Profile() {
                   Joined: {date}
                 </p>
                 <div className="flex gap-5 text-[15px]  ml-4">
-                  <div  className="gap-2">
-                    <b>{stat[1] ?? 0}</b> <span className="text-zinc-500">Following</span>
-                  </div> 
                   <div className="gap-2">
-                    <b>{stat[0] ?? "0"}</b> <span className="text-zinc-500">Followers</span>
+                    <b>{stat[1] ?? 0}</b>{" "}
+                    <span className="text-zinc-500">Following</span>
+                  </div>
+                  <div className="gap-2">
+                    <b>{stat[0] ?? "0"}</b>{" "}
+                    <span className="text-zinc-500">Followers</span>
                   </div>
                 </div>
                 <div className="w-full flex items-center justify-center text-[16px] text-zinc-500 mt-5">
@@ -280,7 +289,7 @@ export default function Profile() {
                       Media
                     </Link>
                   </div>
-                  <div className="w-full h-10" onClick={() => signIn("google")}>
+                  <div className="w-full h-10">
                     <Link
                       href="#"
                       className="w-full flex items-center justify-center hover:bg-zinc-700 transition duration-200 h-full"
@@ -291,66 +300,126 @@ export default function Profile() {
                 </div>
               </div>
             </div>
+            </>
+          )
+        } 
           </div>
+
           <div className="min-h-30 bg-black max-h-100  w-full">
-            {row.map((r: any) => {
-              return (
-                <div className="flex px-5 py-4 w-full border-x border-b border-zinc-700 " key={r.id}>
-                  <div>
-                    <Image
-                      src={(session.data?.user?.image as string) ?? "/black.svg"}
-                      alt="User"
-                      height={45}
-                      width={45}
-                      className="rounded-full border-black"
-                    ></Image>
-                  </div>
-                  <div className="pl-3 w-full">
-                    <div className="flex gap-2 items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <p className="font-bold text-[16px]">
-                          {session.data?.user?.name}{" "}
-                          <span className="text-zinc-700">@{tag}</span>
-                        </p>{" "}
-                        <i className="text-[10px] text-zinc-700">•</i>{" "}
-                        <span className="text-[14px] text-zinc-400">
-                          {date}
-                        </span>
-                      </div>
-
-                      <div className="flex gap-3">
-                        <Image
-                          src={"/grok.svg"}
-                          alt="user"
-                          width={20}
-                          height={20}
-                        ></Image>
-                        <Image
-                          src={"/threepoints.svg"}
-                          alt="user"
-                          width={20}
-                          height={20}
-                        ></Image>
-                      </div>
-                    </div>
-
-                    {/* CONTENT */}
-                    <div>
-                      <p>{r.content}</p>
-                    </div>
-                    {/* CONTENT */}
-                  </div>
-                  <div>
-                    див
-                  </div>
-                </div>
+            {row?.map((r: any) => {
               
-            );
-            
+              return (
+                <div
+                  className=" border-x border-b border-zinc-700 break-words flex"
+                  key={r.id}
+                >
+                  <div className="px-5 py-4 w-full flex">
+                  <Image
+                    src={(session.data?.user?.image as string) ?? "/black.svg"}
+                    alt="User"
+                    height={25}
+                    width={45}
+                    className="rounded-full border-black w-[45px] h-[45px] flex-none"
+                  ></Image>
+                  <div className="w-full">
+                    <div className="pl-3 w-full text-wrap">
+                      <div className="flex gap-2 items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <p className="font-bold text-[16px]">
+                            {session.data?.user?.name}{" "}
+                            <span className="text-zinc-700">@{tag}</span>
+                          </p>{" "}
+                          <i className="text-[10px] text-zinc-700">•</i>{" "}
+                          <span className="text-[14px] text-zinc-400">
+                            {date}
+                          </span>
+                        </div>
+
+                        <div className="flex gap-3">
+                          <Image
+                            src={"/grok.svg"}
+                            alt="user"
+                            width={20}
+                            height={20}
+                          ></Image>
+                          <Image
+                            src={"/threepoints.svg"}
+                            alt="user"
+                            width={20}
+                            height={20}
+                          ></Image>
+                        </div>
+                      </div>
+
+                      {/* CONTENT */}
+                      <div className="text-wrap break-all">
+                        <b className="">{r.content}</b>
+                      </div>
+                      {/* CONTENT */}
+                    </div>
+                    <div className="flex w-full pl-3 mt-2">
+                      <div className="w-full flex">
+                        <button className="cursor-pointer flex items-center gap-1">
+                          <Image
+                            src="comment.svg"
+                            alt="likes"
+                            width={16}
+                            height={16}
+                            className="object-cover w-[16px] h-[16px] flex-none"
+                          ></Image> 
+                          <p className="text-[14px] text-zinc-400"> 0 </p>
+                        </button>
+                      </div>
+                      <div className="w-full">
+                      <button className="cursor-pointer flex items-center gap-1">
+                          <Image
+                            src="repost.svg"
+                            alt="likes"
+                            width={16}
+                            height={16}
+                            className="object-cover w-[16px] h-[16px] flex-none"
+                          ></Image> 
+                          <p className="text-[14px] text-zinc-400"> 0 </p>
+                        </button> 
+                      </div>
+                      <div className="w-full">
+                      <button  className="cursor-pointer flex items-center gap-1">
+                          <Image
+                            src="like.svg"
+                            alt="likes"
+                            width={16}
+                            height={16}
+                            className="object-cover w-[16px] h-[16px] flex-none"
+                          ></Image> 
+                          <p className="text-[14px] text-zinc-400"> 0 </p>
+                        </button>
+                      </div>
+                      <div className="w-full">
+                      <button  className="cursor-pointer flex items-center gap-1" >
+                          <Image
+                            src="bar-chart.svg"
+                            alt="likes"
+                            width={16}
+                            height={16}
+                            className="object-cover w-[16px] h-[16px] flex-none"
+                          ></Image> 
+                          <p className="text-[14px] text-zinc-400"> 0 </p>
+                        </button>
+                      </div>
+                    </div>
+                    <div className="w-full flex"></div>
+                  </div>
+                  
+                </div>
+                  </div>
+                    
+              );
             })}
+            
           </div>
+         
         </div>
-      )}
+      
       <RightMenu />
     </div>
   );
