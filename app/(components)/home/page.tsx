@@ -77,7 +77,7 @@ export default function Home() {
                     </Link>
                   </div>
                 </div>
-                <div className="w-full px-4 py-3 border-x border-zinc-700 flex gap-4 ">
+                <div className="w-full px-4 py-3 border border-zinc-700 flex gap-4 ">
                   <div className="flex-shrink-0">
                     <Image
                       src={session.data?.user?.image ?? "/morph.jpg"}
@@ -170,13 +170,13 @@ export default function Home() {
             </div>
             {/* POSTS */}
             <div>
-            {tweets.map((tweet) => (
+            {/* {tweets.map((tweet) => (
             <Posts
               key={tweet.id}
               message={tweet.text}
               user={tweet.user}
             ></Posts>
-          ))}
+          ))} */}
             </div>
           </div>
         </div>

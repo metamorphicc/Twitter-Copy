@@ -4,7 +4,7 @@ import GoogleButton from "./googleButton";
 import Modal from "@/app/shared/components/modalWindow";
 import { Portal } from "../../shared/components/Portal";
 import React, { useState } from "react";
-import { redirect } from "next/navigation";
+import { redirect, usePathname } from "next/navigation";
 import { checkSes } from "../home/checkSession";
 import { useRouter } from "next/navigation";
 import { useSession, signIn } from "next-auth/react";
@@ -12,10 +12,12 @@ import generateTag from "@/app/shared/randomTag";
 
 export default function Login() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isNext, setIsNext] = useState(true);
+  const [isNext, setIsNext] = useState(false);
   const [tagNext, setTagNext] = useState("");
   const [usernameForm, setUsernameForm] = useState("");
   const [emailForm, setEmailForm] = useState("");
+  const [inputValue, setInputValue] = useState("");
+  const path = usePathname();
   const router = useRouter();
   const session = useSession();
 
@@ -56,6 +58,9 @@ export default function Login() {
     if (res?.ok) redirect("/home") 
     console.log(session);
   }
+
+
+
 
   return (
     <div className="h-screen w-screen fixed flex">
@@ -121,6 +126,7 @@ export default function Login() {
                 <form
                   id="signup-form"
                   onSubmit={handleForm}
+                  key={path}
                   className="h-[80%] flex items-center flex-col rounded-[50px] justify-between"
                 >
                   {!isNext ? (
@@ -245,22 +251,32 @@ export default function Login() {
                       </div>
 
                       <div className="w-[70%] mt-10 flex gap-2">
-                        <button
-                          type="button"
-                          onClick={() => setIsNext(!isNext)}
-                          className="border border-zinc-700 rounded-xl px-4 py-2"
-                        >
-                          Back
-                        </button>
 
+                      {tagNext && tagNext.length > 3 ?
+                      <>
                         <button
-                          type="submit" // финальный сабмит
+                          type="submit" 
                           className="border border-zinc-700 rounded-xl hover:bg-zinc-700 transition cursor-pointer w-full h-full mb-5"
                         >
                           <p className="font-black text-border-zinc-700">
-                            Skip for now
+                             
+                             <p>Log in</p>  
+                            
                           </p>
                         </button>
+                      </> :   <>
+                        <button
+                          type="submit" 
+                          className="border border-zinc-700 rounded-xl group hover:bg-zinc-700 transition cursor-pointer w-full h-full mb-5 "
+                        >
+                          <p className="font-black text-border-zinc-700 ">
+                             
+                             <p className="text-zinc-400 group-hover:text-white">Skip for now</p> 
+                            
+                          </p>
+                        </button>
+                      </> 
+                        }
                       </div>
                     </>
                   )}

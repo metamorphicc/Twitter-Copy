@@ -28,7 +28,7 @@ export const menuIcons = [
   },
   {
     id: 5,
-    icon: "/crocodile.svg",
+    icon: "/grok.svg",
     name: "Grok",
     link: `/grok`
 
