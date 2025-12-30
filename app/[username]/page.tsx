@@ -93,10 +93,9 @@ export default function Profile() {
   }
   const reversedRow = row?.reverse()
   return (
-    <div className="flex h-screen justify-center">
-      <LeftMenu />
+    <div className="flex justify-center">
       
-        <div className="w-145 h-full flex-col gap-2">
+        <div className="w-145 gap-2">
         
           <div className="w-full border border-zinc-700 flex-col">
             {loading ? (
@@ -104,6 +103,7 @@ export default function Profile() {
           ) : (
           <>
             {/* ДИВ ДЛЯ ШАПКИ */}
+            <div className="sticky top-0 z-20 bg-black border-b border-zinc-700">
             <header className="bg-black h-12 flex items-center">
               <div className="flex items-center justify-center w-full px-3">
                 <div className="h-12 w-20">
@@ -169,6 +169,7 @@ export default function Profile() {
                 </div>
               </div>
             </header>
+            </div>
             <div className="w-full h-50 flex flex-col justify-center items-center text-xl">
               <div
                 className="relative h-48 w-full group"
@@ -420,7 +421,6 @@ export default function Profile() {
          
         </div>
       
-      <RightMenu />
     </div>
   );
 }

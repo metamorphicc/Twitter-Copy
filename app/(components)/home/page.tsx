@@ -45,7 +45,6 @@ export default function Home() {
   return (
     <>
       <div className="w-full flex justify-center">
-        <LeftMenu />
         <div className=" flex flex-col justify-center items-center">
           <div className="border border-zinc-700 min-w-70 w-145 h-full flex flex-col items-center">
             <div className="w-full">
@@ -180,7 +179,6 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <RightMenu />
       </div>
     </>
   );

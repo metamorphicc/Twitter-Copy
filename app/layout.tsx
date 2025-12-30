@@ -3,6 +3,8 @@ import { Geist, Lato } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "./context/ThemeContext";
 import ProviderSes from "./context/ProviderContext";
+import RightMenu from "./(components)/right_menu/RightMenu";
+import LeftMenu from "./(components)/left_menu/LeftMenu";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -29,9 +31,25 @@ export default function RootLayout({
       <body className={`${lato.className} antialiased`}>
         <ProviderSes>
           <ThemeProvider>
-          <div id="modal-root" />
-            {children}
             
+            <div className="w-full flex justify-center">
+              <div className="w-60">
+                <div className="fixed top-0 h-screen">
+                  <LeftMenu />
+                </div>
+              </div>
+
+              <main className="flex flex-col justify-center items-center">
+                <div id="modal-root" />
+                {children}
+              </main>
+
+              <div className="w-60">
+                <div className="fixed top-0 h-screen">
+                  <RightMenu />
+                </div>
+              </div>
+            </div>
           </ThemeProvider>
         </ProviderSes>
       </body>
