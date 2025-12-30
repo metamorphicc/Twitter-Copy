@@ -1,7 +1,7 @@
 "use client";
 
-import RightMenu from "../right_menu/RightMenu";
-import LeftMenu from "../left_menu/LeftMenu";
+import RightMenu from "../../right_menu/RightMenu";
+import LeftMenu from "../../left_menu/LeftMenu";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
@@ -11,8 +11,7 @@ export function Explore() {
   const path = usePathname();
   return (
     <>
-      <div className="w-full flex justify-center overflow-visible">
-        <LeftMenu />
+      <div className="w-full flex justify-center overflow-visible h-screen">
         <div className="flex flex-col justify-center items-center">
           <div className="min-w-70 w-145 border border-zinc-700 bg-black flex flex-col h-full">
             <div className="h-1/7 w-full bg-zinc-950 flex flex-col">
@@ -130,7 +129,6 @@ export function Explore() {
           </div>
         </div>
         <div></div>
-        <RightMenu />
       </div>
     </>
   );

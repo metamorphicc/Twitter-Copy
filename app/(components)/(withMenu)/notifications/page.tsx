@@ -1,20 +1,19 @@
 "use client";
 
 import { log } from "console";
-import LeftMenu from "../left_menu/LeftMenu";
-import RightMenu from "../right_menu/RightMenu";
+import LeftMenu from "../../left_menu/LeftMenu";
+import RightMenu from "../../right_menu/RightMenu";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-
 
 export function Notification(props: any) {
   const router = useRouter();
   const path = usePathname();
   // const [profiles, setProfiles] = useState<any[""]>([]);
   // const [loading, setLoading] = useState(true);
-  
+
   // useEffect(() => {
   //   async function load(){
   //   try {
@@ -23,20 +22,18 @@ export function Notification(props: any) {
   //     setProfiles(data);
   //   } catch(e) {
   //     console.log(e);
-      
+
   //   } finally {
   //     setLoading(false)
   //   }
-    
-    
+
   // }
   // load()
   // }, [])
   // if (loading) return <div>loading...</div>
   return (
     <>
-      <div className="w-full flex justify-center">
-        <LeftMenu />
+      <div className="w-full flex justify-center h-screen">
         <div className="flex flex-col justify-center items-center">
           <div className="border border-zinc-700 min-w-70 w-145 h-full flex flex-col bg-black items-center">
             <div className="h-1/7 w-full bg-zinc-950 flex flex-col">
@@ -66,13 +63,11 @@ export function Notification(props: any) {
                     }}
                     className="w-full h-full flex justify-center items-center"
                   >
-                    {path === "/notifications" ? 
-                    <p className="text-white font-bold">
-                      All
-                    </p> : 
-                    <p> All </p>
-                    }
-                    
+                    {path === "/notifications" ? (
+                      <p className="text-white font-bold">All</p>
+                    ) : (
+                      <p> All </p>
+                    )}
                   </Link>
                 </div>
 
@@ -85,12 +80,11 @@ export function Notification(props: any) {
                     }}
                     className="w-full h-full flex justify-center items-center"
                   >
-                    {path === "/notifications/verified" ? 
-                    <p className="text-white font-bold">
-                      Verified
-                    </p> : 
-                    <p>Verified</p>
-                    }
+                    {path === "/notifications/verified" ? (
+                      <p className="text-white font-bold">Verified</p>
+                    ) : (
+                      <p>Verified</p>
+                    )}
                   </Link>
                 </div>
 
@@ -103,29 +97,25 @@ export function Notification(props: any) {
                     }}
                     className="w-full h-full flex justify-center items-center"
                   >
-                    {path === "/notifications/mentions" ? 
-                    <p className="text-white font-bold">
-                      Mentions
-                    </p> : 
-                    <p>Mentions</p>
-                    }
+                    {path === "/notifications/mentions" ? (
+                      <p className="text-white font-bold">Mentions</p>
+                    ) : (
+                      <p>Mentions</p>
+                    )}
                   </Link>
                 </div>
               </div>
             </div>
             <div className="w-full h-full flex">
-                    <div className="w-full flex flex-col items-center">
-                      <div className="p-5 items-center flex flex-col m-8">
-                      <h4 className="font-extrabold text-[30px] text-wrap"></h4>
-                      <span>When someone mentions you, you’ll find it here.</span>
-                      </div>
-                      
-                    </div>
+              <div className="w-full flex flex-col items-center">
+                <div className="p-5 items-center flex flex-col m-8">
+                  <h4 className="font-extrabold text-[30px] text-wrap"></h4>
+                  <span>When someone mentions you, you’ll find it here.</span>
+                </div>
+              </div>
+            </div>
           </div>
-          </div>
-          
         </div>
-        <RightMenu />
       </div>
     </>
   );

@@ -5,7 +5,7 @@ import Modal from "@/app/shared/components/modalWindow";
 import { Portal } from "../../shared/components/Portal";
 import React, { useState } from "react";
 import { redirect, usePathname } from "next/navigation";
-import { checkSes } from "../home/checkSession";
+import { checkSes } from "../../(components)/(withMenu)/home/checkSession";
 import { useRouter } from "next/navigation";
 import { useSession, signIn } from "next-auth/react";
 import generateTag from "@/app/shared/randomTag";
@@ -22,7 +22,9 @@ export default function Login() {
   const session = useSession();
 
   const handleNextStep = () => {
-    const form = document.getElementById("signup-form") as HTMLFormElement | null;
+    const form = document.getElementById(
+      "signup-form"
+    ) as HTMLFormElement | null;
     if (!form) return;
 
     const formData = new FormData(form);
@@ -39,28 +41,25 @@ export default function Login() {
 
   async function handleForm(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    console.log("SUBMIT")
+    console.log("SUBMIT");
     const form = e.currentTarget;
     const formData = new FormData(form);
     const tag = formData.get("tag-next");
     const month = formData.get("month");
     const day = formData.get("day");
     const year = formData.get("year");
-    console.log("after submit")
-    console.log(emailForm, usernameForm)
+    console.log("after submit");
+    console.log(emailForm, usernameForm);
     const res = await signIn("credentials", {
       redirect: false,
       usernameForm,
       emailForm,
       tag,
     });
-    console.log(res)
-    if (res?.ok) redirect("/home") 
+    console.log(res);
+    if (res?.ok) redirect("/home");
     console.log(session);
   }
-
-
-
 
   return (
     <div className="h-screen w-screen fixed flex">
@@ -251,32 +250,31 @@ export default function Login() {
                       </div>
 
                       <div className="w-[70%] mt-10 flex gap-2">
-
-                      {tagNext && tagNext.length > 3 ?
-                      <>
-                        <button
-                          type="submit" 
-                          className="border border-zinc-700 rounded-xl hover:bg-zinc-700 transition cursor-pointer w-full h-full mb-5"
-                        >
-                          <p className="font-black text-border-zinc-700">
+                        {tagNext && tagNext.length > 3 ? (
+                          <>
+                            <button
+                              type="submit"
+                              className="border border-zinc-700 rounded-xl hover:bg-zinc-700 transition cursor-pointer w-full h-full mb-5"
+                            >
+                              <p className="font-black text-border-zinc-700">
+                                <p>Log in</p>
+                              </p>
+                            </button>
+                          </>
+                        ) : (
+                          <>
+                            <button
+                              type="submit"
+                              className="border border-zinc-700 rounded-xl group hover:bg-zinc-700 transition cursor-pointer w-full h-full mb-5 "
+                            >
+                 
+                                <p className="text-zinc-400 group-hover:text-white">
+                                  Skip for now
+                                </p>
                              
-                             <p>Log in</p>  
-                            
-                          </p>
-                        </button>
-                      </> :   <>
-                        <button
-                          type="submit" 
-                          className="border border-zinc-700 rounded-xl group hover:bg-zinc-700 transition cursor-pointer w-full h-full mb-5 "
-                        >
-                          <p className="font-black text-border-zinc-700 ">
-                             
-                             <p className="text-zinc-400 group-hover:text-white">Skip for now</p> 
-                            
-                          </p>
-                        </button>
-                      </> 
-                        }
+                            </button>
+                          </>
+                        )}
                       </div>
                     </>
                   )}

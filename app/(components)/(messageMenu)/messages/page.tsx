@@ -1,13 +1,12 @@
-import RightMenu from "../right_menu/RightMenu";
-import LeftMenu from "../left_menu/LeftMenu";
+import RightMenu from "../../right_menu/RightMenu";
+import LeftMenu from "../../left_menu/LeftMenu";
 import Link from "next/link";
 import Image from "next/image";
 export function Messages() {
   return (
-    <div className="w-full flex justify-center">
-      <LeftMenu />
+    <div className="w-full flex justify-center h-screen">
       <div className=" flex flex-col justify-center items-center">
-        <div className="border border-zinc-700 min-w-70 w-230 flex justify-center gap-2 h-full">
+        <div className="border border-zinc-700 min-w-70 w-210 flex justify-center gap-2 h-full">
           <div className="flex flex-col items-center w-full border border-e-zinc-700 border-y-black border-s-black">
             <div className="flex justify-between w-full p-5">
               <h1 className="text-[19px] font-bold">Messages</h1>

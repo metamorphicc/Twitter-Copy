@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Lato } from "next/font/google";
-import "./globals.css";
-import { ThemeProvider } from "./context/ThemeContext";
-import ProviderSes from "./context/ProviderContext";
+import "../globals.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,12 +24,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${lato.className} antialiased`}>
-        <ProviderSes>
-          <ThemeProvider>{children}</ThemeProvider>
-        </ProviderSes>
-      </body>
-    </html>
+    <main>
+      <div id="modal-root" />
+      {children}
+    </main>
   );
 }
