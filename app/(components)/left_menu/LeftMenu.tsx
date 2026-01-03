@@ -7,12 +7,44 @@ import { menuIcons } from "../../shared/data/MenuButtons.data";
 import DropoutMenu from "../toggleMenu";
 import { useSession } from "next-auth/react";
 import { response } from "express";
-
+import { Portal } from "@/app/shared/components/Portal";
+import Modal from "@/app/shared/components/modalWindow";
+import ModalForPosts from "@/app/shared/components/modalForPosts";
+import { useRef } from "react";
 function toCapitalize(arg: string): string {
   return arg.split("")[0].toUpperCase() + arg.split("").slice(1).join("");
 }
 
 export function LeftMenu(): any {
+  const ref = useRef<HTMLTextAreaElement>(null);
+
+  const [text, setText] = useState("");
+  const sessionS = useSession();
+  const id = sessionS.data?.user?.id;
+  const handleAction = (e: React.FormEvent) => {
+    const trimmed = text.trim();
+    if (!trimmed) {
+      e.preventDefault();
+
+      return;
+    }
+    fetch("http://localhost:8089/api/posts", {
+      method: "POST",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify({ text, id }),
+    });
+    setText("");
+    if (ref.current) {
+      ref.current.style.height = "auto";
+    }
+  };
+  const handleInput = () => {
+    const el = ref.current;
+    if (!el) return;
+    el.style.height = "auto";
+    el.style.height = el.scrollHeight + "px";
+  };
+  const [postOpened, setPostOpened] = useState(false);
   const router = useRouter();
   const path = usePathname();
   const [more, setMore] = useState(false);
@@ -20,154 +52,288 @@ export function LeftMenu(): any {
   const toggleMenu = () => {
     setMore((prev) => !prev);
   };
-  const session = useSession()
+  const session = useSession();
   const ids = session.data?.user?.id;
   useEffect(() => {
-    if (!ids) return
+    if (!ids) return;
     async function getInfo() {
       const res = await fetch("http://localhost:8089/api/profiles", {
         method: "POST",
         headers: { "Content-type": "application/json" },
-        body: JSON.stringify({id: ids})
-      })
+        body: JSON.stringify({ id: ids }),
+      });
       const response = await res.json();
-      setTag(response.result.tag)
+      setTag(response.result.tag);
     }
-    getInfo()
-  }, [ids])
-  // обертка меню
-return (
-  <aside className="w-60">
-    <div className="sticky top-0 h-screen flex flex-col justify-between">
+    getInfo();
+  }, [ids]);
 
-      <ul className="space-y-3 p-4 pr-0 flex flex-col">
-        <li>
-          <Link href="/" onClick={() => router.replace("/")}>
-            <Image
-              src="/Xlogo.svg"
-              alt="X"
-              width={40}
-              height={40}
-              className="ml-2 mt-2"
-            />
-          </Link>
-        </li>
-
-        {menuIcons.map((icon) => (
-          <li className="gap-6" key={icon.id}>
-            {icon.name === "More" ? (
-              <>
-                <div
-                  className="group w-min-30 flex font-medium relative cursor-pointer"
-                  onClick={toggleMenu}
-                >
-                  {more && (
-                    <>
-                      <div className="fixed inset-0 w-screen z-90" />
-                      <DropoutMenu />
-                    </>
-                  )}
-
-                  <div className="transition duration-100 group-hover:bg-zinc-800 flex p-3 rounded-[50px]">
-                    <Image
-                      src={icon.icon}
-                      alt="home icon"
-                      width={27}
-                      height={27}
-                    />
-
-                    {path === `/${icon.name}` ||
-                    (path === "/" && icon.name === "home") ? (
-                      <span className="ml-3 font-semibold text-[19px] pl-2">
-                        {toCapitalize(icon.name)}
-                      </span>
-                    ) : (
-                      <span className="ml-3 text-[19px] pl-2">
-                        {toCapitalize(icon.name)}
-                      </span>
-                    )}
-                  </div>
-                </div>
-              </>
-            ) : (
-              <div>
-                <Link
-                  href={icon.link}
-                  className="group w-min-30 flex font-medium"
-                >
-                  <div className="transition duration-100 group-hover:bg-zinc-800 flex p-2 px-3 pr-4 rounded-[50px]">
-                    <Image
-                      src={icon.icon}
-                      alt="home icon"
-                      width={27}
-                      height={27}
-                    />
-
-                    {path === `/${icon.name}` ||
-                    (path === "/" && icon.name === "home") ? (
-                      <span className="ml-3 font-semibold text-[19px] pl-2">
-                        {toCapitalize(icon.name)}
-                      </span>
-                    ) : (
-                      <span className="ml-3 text-[19px] pl-2">
-                        {toCapitalize(icon.name)}
-                      </span>
-                    )}
-                  </div>
-                </Link>
-              </div>
-            )}
-          </li>
-        ))}
-
-        <li>
-          <div className="mt-5">
-            <button
-              className="w-[90%] cursor-pointer text-lg bg-white text-black rounded-[40px] py-2.5 font-semibold transition duration-200 hover:bg-zinc-300"
-            >
-              Post
-            </button>
-          </div>
-        </li>
-      </ul>
-
-      <div className="mb-3">
-        <button
-          className="w-[96%] cursor-pointer text-lg bg-black text-black rounded-[50px] font-semibold transition duration-200 hover:bg-neutral-900"
-        >
-          <div className="px-3 py-1.5 flex items-center">
-            <div className="flex items-center">
+  return (
+    <aside className="w-60">
+      <div className="sticky top-0 h-screen flex flex-col justify-between">
+        <ul className="space-y-3 p-4 pr-0 flex flex-col">
+          <li>
+            <Link href="/" onClick={() => router.replace("/")}>
               <Image
-                src={(session.data?.user?.image as string) ?? "/black.svg"}
-                alt=""
+                src="/Xlogo.svg"
+                alt="X"
                 width={40}
                 height={40}
-                className="rounded-[40px]"
+                className="ml-2 mt-2"
               />
+            </Link>
+          </li>
+
+          {menuIcons.map((icon) => (
+            <li className="gap-6" key={icon.id}>
+              {icon.name === ("More" as any) ? (
+                <>
+                  <div
+                    className="group w-min-30 flex font-medium relative cursor-pointer"
+                    onClick={toggleMenu}
+                  >
+                    {more && (
+                      <>
+                        <div className="fixed inset-0 w-screen z-90" />
+                        <DropoutMenu />
+                      </>
+                    )}
+
+                    <div className="transition duration-100 group-hover:bg-zinc-800 flex p-3 rounded-[50px]">
+                      <Image
+                        src={icon.icon}
+                        alt="home icon"
+                        width={27}
+                        height={27}
+                      />
+
+                      {path === `/${icon.name}` ||
+                      (path === "/" && icon.name === "home") ? (
+                        <span className="ml-3 font-semibold text-[19px] pl-2">
+                          {toCapitalize(icon.name)}
+                        </span>
+                      ) : (
+                        <span className="ml-3 text-[19px] pl-2">
+                          {toCapitalize(icon.name)}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <div>
+                  <Link
+                    href={icon.link}
+                    className="group w-min-30 flex font-medium"
+                  >
+                    <div className="transition duration-100 group-hover:bg-zinc-800 flex p-2 px-3 pr-4 rounded-[50px]">
+                      <Image
+                        src={icon.icon}
+                        alt="home icon"
+                        width={27}
+                        height={27}
+                      />
+
+                      {path === `/${icon.name}` ||
+                      (path === "/" && icon.name === "home") ? (
+                        <span className="ml-3 font-semibold text-[19px] pl-2">
+                          {toCapitalize(icon.name)}
+                        </span>
+                      ) : (
+                        <span className="ml-3 text-[19px] pl-2">
+                          {toCapitalize(icon.name)}
+                        </span>
+                      )}
+                    </div>
+                  </Link>
+                </div>
+              )}
+            </li>
+          ))}
+
+          <li>
+            <div className="mt-5">
+              <button
+                className="w-[90%] cursor-pointer text-lg bg-white text-black rounded-[40px]
+              py-2.5 font-semibold transition duration-200 hover:bg-zinc-300"
+                onClick={() => setPostOpened(!postOpened)}
+              >
+                Post
+              </button>
+              {postOpened && (
+                <Portal id="modal-root">
+                  <ModalForPosts
+                    isOpen={postOpened}
+                    onClose={() => {
+                      setPostOpened(false);
+                    }}
+                  >
+                    <>
+                      <div className="h-full w-full">
+                        <div className="px-2 flex flex-col h-full w-full h-30">
+                          <div className="flex flex-grow">
+                            <div className="pl-2 mt-3 ">
+                              <Image
+                                src={session.data?.user?.image ?? "/black.src"}
+                                alt="user"
+                                height={33}
+                                width={33}
+                                className="rounded-[50px] flex-none height-[33px] width-[33px]"
+                              ></Image>
+                            </div>
+                            <div className="flex-grow">
+                              <form
+                                onSubmit={handleAction}
+                                className="w-full h-full pb-2"
+                              >
+                                <textarea
+                                  ref={ref}
+                                  onInput={handleInput}
+                                  className="w-full overflow-hidden resize-none bg-black text-white p-2 pr-4 outline-none whitespace-pre-wrap h-full break-words text-[16px]"
+                                  placeholder="What’s happening?"
+                                  value={text}
+                                  onChange={(e) => {
+                                    setText(e.target.value);
+                                  }}
+                                />
+                              </form>
+                            </div>
+                          </div>
+                          <div className="flex justify-between items-center mt-3 px-2 pb-2">
+                            <ul className="flex gap-2 text-sky-500">
+                              <li>
+                                <Link
+                                  href={"/"}
+                                  className="hover:bg-sky-900/30 transition duration-200 rounded-[50px] w-8 h-8 cursor-pointer flex justify-center items-center"
+                                >
+                                  <Image
+                                    src={"/picture.svg"}
+                                    alt="asdf"
+                                    width={18}
+                                    height={18}
+                                  ></Image>
+                                </Link>
+                              </li>
+                              <li>
+                                <Link
+                                  href={"/"}
+                                  className="hover:bg-sky-900/30 transition duration-200 rounded-[50px] w-8 h-8 cursor-pointer flex justify-center items-center"
+                                >
+                                  <Image
+                                    src={"/gif.svg"}
+                                    alt="asdf"
+                                    width={18}
+                                    height={18}
+                                  ></Image>
+                                </Link>
+                              </li>
+                              <li>
+                                <Link
+                                  href={"/"}
+                                  className="hover:bg-sky-900/30 transition duration-200 rounded-[50px] w-8 h-8 cursor-pointer flex justify-center items-center"
+                                >
+                                  <Image
+                                    src={"/poll.svg"}
+                                    alt="asdf"
+                                    width={18}
+                                    height={18}
+                                  ></Image>
+                                </Link>
+                              </li>
+                              <li>
+                                <Link
+                                  href={"/"}
+                                  className="hover:bg-sky-900/30 transition duration-200 rounded-[50px] w-8 h-8 cursor-pointer flex justify-center items-center"
+                                >
+                                  <Image
+                                    src={"/smile.svg"}
+                                    alt="asdf"
+                                    width={18}
+                                    height={18}
+                                  ></Image>
+                                </Link>
+                              </li>
+                              <li>
+                                <Link
+                                  href={"/"}
+                                  className="hover:bg-sky-900/30 transition duration-200 rounded-[50px] w-8 h-8 cursor-pointer flex justify-center items-center"
+                                >
+                                  <Image
+                                    src={"/calendar-deadline.svg"}
+                                    alt="asdf"
+                                    width={18}
+                                    height={18}
+                                  ></Image>
+                                </Link>
+                              </li>
+                              <li>
+                                <Link
+                                  href={"/"}
+                                  className="hover:bg-sky-900/30 transition duration-200 rounded-[50px] w-8 h-8 cursor-pointer flex justify-center items-center"
+                                >
+                                  <Image
+                                    src={"/mapslocation.svg"}
+                                    alt="asdf"
+                                    width={18}
+                                    height={18}
+                                  ></Image>
+                                </Link>
+                              </li>
+                            </ul>
+
+                            <button
+                              className="
+          bg-sky-500 text-white font-semibold
+          rounded-full px-4 py-1.5 text-[15px]
+          hover:bg-sky-600 transition cursor-pointer
+        "
+                            >
+                              Post
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </>
+                  </ModalForPosts>
+                </Portal>
+              )}
             </div>
-            <div className="flex-1 mx-2 flex flex-col items-start">
-              <p className="text-white text-[15px]">
-                {session.data?.user?.name ?? ""}
-              </p>
-              <span className="text-zinc-500 text-[15px]">@{tag}</span>
+          </li>
+        </ul>
+
+        <div className="mb-3">
+          <button className="w-[96%] cursor-pointer text-lg bg-black text-black rounded-[50px] font-semibold transition duration-200 hover:bg-neutral-900">
+            <div className="px-3 py-1.5 flex items-center">
+              <div className="flex items-center">
+                <Image
+                  src={(session.data?.user?.image as string) ?? "/black.svg"}
+                  alt=""
+                  width={40}
+                  height={40}
+                  className="rounded-[40px]"
+                />
+              </div>
+              <div className="flex-1 mx-2 flex flex-col items-start">
+                <p className="text-white text-[15px]">
+                  {session.data?.user?.name ?? ""}
+                </p>
+                <span className="text-zinc-500 text-[15px]">@{tag}</span>
+              </div>
+              <div className="flex justify-end">
+                <Image
+                  src="/threepoints.svg"
+                  alt="="
+                  width={13}
+                  height={13}
+                  className="rounded-[40px]"
+                />
+              </div>
             </div>
-            <div className="flex justify-end">
-              <Image
-                src="/threepoints.svg"
-                alt="="
-                width={13}
-                height={13}
-                className="rounded-[40px]"
-              />
-            </div>
-          </div>
-        </button>
+          </button>
+        </div>
       </div>
-
-    </div>
-  </aside>
-);
-
+    </aside>
+  );
 }
 
 export default LeftMenu;

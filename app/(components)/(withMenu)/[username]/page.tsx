@@ -12,11 +12,6 @@ import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { useSession } from "next-auth/react";
 
-function ProfileDate(props: any) {
-  const [date, setDate] = useState("");
-
-  return <span>{date}</span>;
-}
 type Post = {
   id: number;
   profile_id: number;
@@ -34,6 +29,7 @@ export default function Profile() {
   const [stat, setStat] = useState([]);
   const [desc, setDesc] = useState("");
   const router = useRouter();
+  const [postDate, setPostDate] = useState();
   const urls: string = usePathname();
   let result = urls.split("/").pop() as keyof typeof profiles;
   const decode = decodeURIComponent(result) as keyof typeof profiles;
@@ -313,6 +309,8 @@ export default function Profile() {
                 })
                 .map((r: any) => {
                   const time = new Date(r.created_at);
+                  const data = new Date(r.created_at).toLocaleDateString();
+
                   const timeConverted = time.toLocaleString("en-GB", {
                     timeZone: "UTC",
                   });
@@ -339,7 +337,7 @@ export default function Profile() {
                           </p>{" "}
                           <i className="text-[10px] text-zinc-700">•</i>{" "}
                           <span className="text-[14px] text-zinc-400">
-                            {date}
+                            {data}
                           </span>
                         </div>
 
