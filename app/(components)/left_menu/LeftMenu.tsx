@@ -4,22 +4,28 @@ import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { menuIcons } from "../../shared/data/MenuButtons.data";
-import DropoutMenu from "../toggleMenu";
+// import DropoutMenu from "../toggleMenu";
 import { useSession } from "next-auth/react";
 import { response } from "express";
 import { Portal } from "@/app/shared/components/Portal";
 import Modal from "@/app/shared/components/modalWindow";
 import ModalForPosts from "@/app/shared/components/modalForPosts";
-import { useRef } from "react";
+import ModalMore from "@/app/shared/components/modalMore";
+import { useRef, useLayoutEffect } from "react";
+
 function toCapitalize(arg: string): string {
   return arg.split("")[0].toUpperCase() + arg.split("").slice(1).join("");
 }
 
 export function LeftMenu(): any {
+  const buttonRef = useRef<HTMLDivElement>(null);
+  const [open, setOpen] = useState(false);
+  const [position, setPosition] = useState({ top: 0, left: 0 });
   const ref = useRef<HTMLTextAreaElement>(null);
-
   const [text, setText] = useState("");
   const sessionS = useSession();
+  const [rect, setRect] = useState<DOMRect | null>(null);
+
   const id = sessionS.data?.user?.id;
   const handleAction = (e: React.FormEvent) => {
     const trimmed = text.trim();
@@ -67,6 +73,26 @@ export function LeftMenu(): any {
     }
     getInfo();
   }, [ids]);
+  useLayoutEffect(() => {
+    if (!open) return;
+    if (!ref.current) return;
+
+    setRect(ref.current.getBoundingClientRect());
+  }, [open]);
+
+  function toggleMenuMore() {
+
+    setOpen(!open);
+    if (!buttonRef.current) return;
+  
+    const rect = buttonRef.current.getBoundingClientRect();
+    setPosition({
+      top: rect.bottom + window.scrollY + 6,
+      left: rect.left + window.scrollX,
+    });
+  
+    
+  }
 
   return (
     <aside className="w-60">
@@ -90,12 +116,30 @@ export function LeftMenu(): any {
                 <>
                   <div
                     className="group w-min-30 flex font-medium relative cursor-pointer"
-                    onClick={toggleMenu}
+                    ref={buttonRef}
+                    onClick={toggleMenuMore}
                   >
-                    {more && (
+                    {open && (
                       <>
-                        <div className="fixed inset-0 w-screen z-90" />
-                        <DropoutMenu />
+                        <ModalMore
+                          isOpen={!postOpened as any}
+                          onClose={() => setOpen(false)}
+                          position={position}
+                        >
+                          <div>
+                            <ul className="space-y-2">
+                              <li className="hover:bg-zinc-800 px-2 py-1 rounded cursor-pointer">
+                                Settings
+                              </li>
+                              <li className="hover:bg-zinc-800 px-2 py-1 rounded cursor-pointer">
+                                Profile
+                              </li>
+                              <li className="hover:bg-zinc-800 px-2 py-1 rounded cursor-pointer">
+                                Logout
+                              </li>
+                            </ul>
+                          </div>
+                        </ModalMore>
                       </>
                     )}
 
@@ -305,8 +349,8 @@ export function LeftMenu(): any {
           rounded-full px-4 py-1.5 text-[15px]
           hover:bg-sky-600 transition cursor-pointer
         "
-        type="submit"
-        form="form-sub"
+                              type="submit"
+                              form="form-sub"
                             >
                               Post
                             </button>

@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 
+
 export default function Modal({ isOpen, onClose, children }: any) {
   const ref = useRef<HTMLDivElement | null>(null);
 

@@ -1,9 +1,11 @@
 "use client";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
 
 export default function ModalForPosts({ isOpen, onClose, children }: any) {
   const ref = useRef<HTMLDivElement | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -29,7 +31,6 @@ export default function ModalForPosts({ isOpen, onClose, children }: any) {
         className="z-50 h-[30%] mt-14" 
       >
         <div className="h-auto w-130 bg-black/90 rounded-[10px] ">
-          {/* Делаем колонку */}
           <div className="flex flex-col h-full ">
             
             <div className="px-3 pt-3">
