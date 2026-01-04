@@ -26,13 +26,13 @@ export default function ModalForPosts({ isOpen, onClose, children }: any) {
       <div
         ref={ref}
         onClick={(e) => e.stopPropagation()}
-        className="z-50 h-[30%]" 
+        className="z-50 h-[30%] mt-14" 
       >
-        <div className="h-full w-130 bg-black/90 rounded-[10px] mt-14">
+        <div className="h-auto w-130 bg-black/90 rounded-[10px] ">
           {/* Делаем колонку */}
-          <div className="flex flex-col h-full">
+          <div className="flex flex-col h-full ">
             
-            <div className="px-7 pt-3">
+            <div className="px-3 pt-3">
               <div className="flex justify-between items-center">
                 <div className="w-full">
                   <button className="hover:bg-zinc-700 transition duration-200 rounded-[50px] w-8 h-8 cursor-pointer flex justify-center items-center">

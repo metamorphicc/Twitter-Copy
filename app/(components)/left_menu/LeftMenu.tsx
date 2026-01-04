@@ -172,32 +172,50 @@ export function LeftMenu(): any {
                       <div className="h-full w-full">
                         <div className="px-2 flex flex-col h-full w-full h-30">
                           <div className="flex flex-grow">
-                            <div className="pl-2 mt-3 ">
+                            <div className="pl-2 pt-3">
                               <Image
-                                src={session.data?.user?.image ?? "/black.src"}
+                                src={
+                                  (session.data?.user?.image as string) ??
+                                  "/black.svg"
+                                }
                                 alt="user"
                                 height={33}
                                 width={33}
-                                className="rounded-[50px] flex-none height-[33px] width-[33px]"
-                              ></Image>
+                                className="rounded-full flex-none"
+                              />
                             </div>
-                            <div className="flex-grow">
+
+                            <div className="flex flex-col flex-grow pt-2">
+                              <button
+                                type="button"
+                                className="ml-2 inline-flex items-center px-3 py-1 rounded-full border border-sky-700/70
+                 text-[13px] text-sky-500 font-semibold
+                 hover:bg-sky-500/10 transition-colors w-[20%]"
+                              >
+                                Everyone
+                                <span className="ml-1 text-[11px]">▼</span>
+                              </button>
+
                               <form
                                 onSubmit={handleAction}
-                                className="w-full h-full pb-2"
+                                className="w-full pb-2 "
+                                id="form-sub"
                               >
                                 <textarea
                                   ref={ref}
                                   onInput={handleInput}
-                                  className="w-full overflow-hidden resize-none bg-black text-white p-2 pr-4 outline-none whitespace-pre-wrap h-full break-words text-[16px]"
+                                  className="mt-1 w-full resize-none text-white
+                   p-2 pr-4 outline-none whitespace-pre-wrap overflow-y-auto break-words text-[16px] "
                                   placeholder="What’s happening?"
                                   value={text}
-                                  onChange={(e) => {
-                                    setText(e.target.value);
-                                  }}
+                                  onChange={(e) => setText(e.target.value)}
                                 />
                               </form>
                             </div>
+                          </div>
+
+                          <div className="flex justify-center">
+                            <hr className="w-[97%] border-zinc-700" />
                           </div>
                           <div className="flex justify-between items-center mt-3 px-2 pb-2">
                             <ul className="flex gap-2 text-sky-500">
@@ -283,10 +301,12 @@ export function LeftMenu(): any {
 
                             <button
                               className="
-          bg-sky-500 text-white font-semibold
+          bg-white text-black font-semibold
           rounded-full px-4 py-1.5 text-[15px]
           hover:bg-sky-600 transition cursor-pointer
         "
+        type="submit"
+        form="form-sub"
                             >
                               Post
                             </button>
