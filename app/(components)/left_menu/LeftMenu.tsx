@@ -126,16 +126,48 @@ export function LeftMenu(): any {
                           onClose={() => setOpen(false)}
                           position={position}
                         >
-                          <div>
-                            <ul className="space-y-2">
-                              <li className="hover:bg-zinc-800 px-2 py-1 rounded cursor-pointer">
-                                Settings
+                          <div className="w-full shadow-[0_0_15px_rgba(0,0,0,0.25)] shadow-white/30 rounded-xl">
+                            <ul className="space-y-2 rounded-[10px]">
+                              <li className="hover:bg-zinc-800 h-13 transition p-3  rounded cursor-pointer flex gap-6 items-center rounded-t-[10px]">
+                                <div>
+                                  <Image src={"/flask.svg"} width={20} height={20} alt="asd">
+
+                                  </Image>
+                                </div>
+                                <p className="font-bold text-[20px]">
+                                Creator studio
+
+                                </p>
                               </li>
-                              <li className="hover:bg-zinc-800 px-2 py-1 rounded cursor-pointer">
-                                Profile
+                              <li className="hover:bg-zinc-800 h-13 transition p-3 cursor-pointer flex gap-6 items-center">
+                              <div>
+                                  <Image src={"/linkTo.svg"} width={20} height={20} alt="asd">
+
+                                  </Image>
+                                </div>
+                                 <p className="font-bold text-[20px]">Ads</p>
                               </li>
-                              <li className="hover:bg-zinc-800 px-2 py-1 rounded cursor-pointer">
-                                Logout
+                              <li className="hover:bg-zinc-800 h-13 transition p-3 cursor-pointer flex gap-6 items-center">
+                              <div className="flex">
+                                  <Image src={"/microphone.svg"} width={20} height={20} alt="asd">
+
+                                  </Image>
+                                </div>
+                                <p className="font-bold text-[20px]">
+                                Create your space
+
+                                </p>
+                              </li>
+                              <li className="hover:bg-zinc-800 h-13 transition p-3 cursor-pointer flex items-center gap-6 rounded-b-xl">
+                              <div>
+                                  <Image src={"/gear.svg"} width={20} height={20} alt="asd">
+
+                                  </Image>
+                                </div>
+                                <p className="font-bold text-[20px]">
+                                   Settings and privacy
+
+                                </p>
                               </li>
                             </ul>
                           </div>

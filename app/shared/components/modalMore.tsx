@@ -36,18 +36,21 @@ export default function ModalMore({
 
   return (
     <Portal id="modal-root">
-      <div
+        <div className="w-screen h-screen z-999 inset-0 fixed">
+            <div
         ref={ref}
         style={{
           position: "absolute",
-          top: position.top,
+          top: position.top - 250,
           left: position.left,
           zIndex: 1000,
         }}
-        className="bg-zinc-900 text-white rounded-xl shadow-lg p-3 w-40"
+        className="bg-black text-white rounded-xl shadow-lg w-79"
       >
         {children}
       </div>
+        </div>
+      
     </Portal>
   );
 }
