@@ -1,5 +1,5 @@
 "use client";
-
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 import ReactMarkdown from "react-markdown";
 import "../../../page";
 import Image from "next/image";
@@ -11,13 +11,15 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { useSession } from "next-auth/react";
-
+import { useAccount, useBalance } from "wagmi";
 type Post = {
   id: number;
   profile_id: number;
   content: string;
 };
 export default function Profile() {
+  const {address, isConnected, isConnecting, chain} = useAccount()
+  const { data } = useBalance({address: address})
   const [coverPreview, setCoverPreview] = useState<string | null>(null);
   const [tag, setTag] = useState("");
   const [createdAt, setcreatedAt] = useState("");
@@ -208,6 +210,7 @@ export default function Profile() {
                       <button className="cursor-pointer shadow border rounded-[18px] p-3 text-sm font-bold h-9 flex items-center transition delay-150 duration-300 hover:rotate-45">
                         Edit profile
                       </button>
+                          <ConnectButton/>
                     </div>
                     <div className="mb-3 h-full">
                       <h1 className="font-bold text-[20px]">
@@ -309,7 +312,7 @@ export default function Profile() {
                 })
                 .map((r: any) => {
                   const time = new Date(r.created_at);
-                  const data = new Date(r.created_at).toLocaleDateString();
+                  const dataa = new Date(r.created_at).toLocaleDateString();
 
                   const timeConverted = time.toLocaleString("en-GB", {
                     timeZone: "UTC",
@@ -337,8 +340,9 @@ export default function Profile() {
                           </p>{" "}
                           <i className="text-[10px] text-zinc-700">•</i>{" "}
                           <span className="text-[14px] text-zinc-400">
-                            {data}
+                            {address} {data?.value as any}
                           </span>
+                          
                         </div>
 
                         <div className="flex gap-3">

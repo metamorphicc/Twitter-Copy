@@ -1,10 +1,17 @@
-import { http, createConfig } from 'wagmi'
-import { mainnet, sepolia } from 'wagmi/chains'
+import { getDefaultConfig } from '@rainbow-me/rainbowkit';
+import { mainnet, polygon, optimism, arbitrum, base } from 'wagmi/chains';
+import { http } from 'wagmi';
 
-export const config = createConfig({
-  chains: [mainnet, sepolia],
+export const config = getDefaultConfig({
+  appName: 'twtiterParody',
+  projectId: '123', 
+  
+  chains: [mainnet, polygon, optimism, arbitrum, base],
+  
+  ssr: true, 
+
   transports: {
     [mainnet.id]: http(),
-    [sepolia.id]: http(),
+    [polygon.id]: http(),
   },
-})
+});

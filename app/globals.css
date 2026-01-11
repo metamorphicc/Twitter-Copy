@@ -3,6 +3,7 @@
 :root {
   --background: #ffffff;
   --foreground: #bcbcbc;
+  --rk-colors-modalBorder: #3b823b
 }
 
 @theme inline {
