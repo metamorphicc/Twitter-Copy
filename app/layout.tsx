@@ -3,6 +3,7 @@ import { Geist, Lato } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "./context/ThemeContext";
 import ProviderSes from "./context/ProviderContext";
+import { Providers } from "./providers/wagmiProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,11 +29,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${lato.className} antialiased`}>
-        <ProviderSes>
-          <ThemeProvider>
-          <div id="modal-root" />
-            {children}</ThemeProvider>
-        </ProviderSes>
+        <Providers>
+          <ProviderSes>
+            <ThemeProvider>
+              <div id="modal-root" />
+              {children}
+            </ThemeProvider>
+          </ProviderSes>
+        </Providers>
       </body>
     </html>
   );
