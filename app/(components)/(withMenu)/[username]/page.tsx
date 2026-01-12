@@ -12,6 +12,7 @@ import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { useSession } from "next-auth/react";
 import { useAccount, useBalance } from "wagmi";
+import WalletButton from "@/app/shared/components/wagmiwalletButton";
 type Post = {
   id: number;
   profile_id: number;
@@ -210,7 +211,7 @@ export default function Profile() {
                       <button className="cursor-pointer shadow border rounded-[18px] p-3 text-sm font-bold h-9 flex items-center transition delay-150 duration-300 hover:rotate-45">
                         Edit profile
                       </button>
-                          <ConnectButton/>
+                          <WalletButton/>
                     </div>
                     <div className="mb-3 h-full">
                       <h1 className="font-bold text-[20px]">
